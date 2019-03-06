@@ -26,10 +26,10 @@ class World(var gravity: Double, var objects: List[PhysicalObject], var boundari
     this.players = newList
   }
 
-  def checkWinner(playerList: List[Player]): String = {
-    if (playerList.size == 1) {
-      var onlyPlayer: Player = playerList.last
-      var playerName: String = onlyPlayer.username
+  def checkWinner(): String = {
+    if (this.players.size == 1) {
+      val onlyPlayer: Player = this.players.last
+      val playerName: String = onlyPlayer.username
       playerName + " has won!!"
     }
     else {

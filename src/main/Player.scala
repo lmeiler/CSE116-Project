@@ -4,7 +4,7 @@ import physics._
 import objects._
 
 class Player(var maxHealth: Int, var strength: Int, var location: PhysicsVector, var velocity: PhysicsVector,
-             var orientation: PhysicsVector, var username: String, var health: Int) {
+             var orientation: PhysicsVector, var username: String, var health: Int) extends PhysicalObject(location, velocity) {
 
 //  var health: Int = maxHealth
 
@@ -13,7 +13,7 @@ class Player(var maxHealth: Int, var strength: Int, var location: PhysicsVector,
       this.health -= projectile.damage
       if (this.health < 0) {
         this.health = 0
-        }
+      }
     }
   }
 }
