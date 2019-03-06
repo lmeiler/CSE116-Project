@@ -19,8 +19,10 @@ class TestCheckWinner extends FunSuite {
     val playerList: List[Player] = List(Gerard, Jerk)
     val world1: World = new World(9.8, List(), List(), List(Gerard), List())
     val world2: World = new World(9.8, List(), List(), List(Gerard, Jerk), List())
+    val world3: World = new World(9.8, List(), List(), List(), List())
 
     assert(world1.checkWinner() == "GerardOfRivertown has won!!")
     assert(world2.checkWinner() == "No Winner Yet")
+    assert(world3.checkWinner() == "Draw")
   }
 }

@@ -32,6 +32,9 @@ class World(var gravity: Double, var objects: List[PhysicalObject], var boundari
       val playerName: String = onlyPlayer.username
       playerName + " has won!!"
     }
+    else if(this.players.isEmpty) {
+      "Draw"
+    }
     else {
       "No Winner Yet"
     }

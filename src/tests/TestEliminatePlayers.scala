@@ -23,11 +23,14 @@ class TestEliminatePlayers extends FunSuite {
     val world1: World = new World(9.8, List(), List(), playerList, List())
     val newPlayers1: List[Player] = List(player1, player2, player4)
     val world2: World = new World(9.8, List(), List(), newPlayers1, List())
+    val world3: World = new World(9.8, List(), List(), List(), List())
 
     world1.eliminatePlayers()
     world2.eliminatePlayers()
+    world3.eliminatePlayers()
 
     assert(world1.players == newPlayers1)
     assert(world2.players == newPlayers1)
+    assert(world3.players == List())
   }
 }
