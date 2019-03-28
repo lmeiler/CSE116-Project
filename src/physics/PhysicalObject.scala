@@ -2,8 +2,6 @@ package physics
 
 import java.lang.Math.{max, min}
 
-import physics.Physics.computePotentialLocation
-
 abstract class PhysicalObject(var location: PhysicsVector, var velocity: PhysicsVector) {
 
   def computePotentialLocation(deltaTime: Double): PhysicsVector = {
@@ -11,41 +9,40 @@ abstract class PhysicalObject(var location: PhysicsVector, var velocity: Physics
     var locationVector: PhysicsVector = this.location
     var velocityX: Double = velocityVector.x
     var velocityY: Double = velocityVector.y
-    var velocityZ: Double = velocityVector.z
+//    var velocityZ: Double = velocityVector.z
     var locationX: Double = locationVector.x
     var locationY: Double = locationVector.y
-    var locationZ: Double = locationVector.z
+//    var locationZ: Double = locationVector.z
     var xDistanceTraveled: Double = velocityX * deltaTime
     var yDistanceTraveled: Double = velocityY * deltaTime
-    var zDistanceTraveled: Double = velocityZ * deltaTime
+//    var zDistanceTraveled: Double = velocityZ * deltaTime
     var newXLocation: Double = locationX + xDistanceTraveled
     var newYLocation: Double = locationY + yDistanceTraveled
-    var newZLocation: Double = (locationZ + zDistanceTraveled)
-    if (newZLocation <= 0) {
-      var groundVector: PhysicsVector = new PhysicsVector(newXLocation, newYLocation, 0.0)
+//    var newZLocation: Double = (locationZ + zDistanceTraveled)
+    if (newYLocation <= 0) {
+      var groundVector: PhysicsVector = new PhysicsVector(newXLocation, 0.0)
       return groundVector
     }
     else {
-      var newVector: PhysicsVector = new PhysicsVector(newXLocation, newYLocation, newZLocation)
+      var newVector: PhysicsVector = new PhysicsVector(newXLocation, newYLocation)
       return newVector
-
     }
   }
 
   def updateVelocity(world: World, deltaTime: Double): Unit = {
     var objectVelocity: PhysicsVector = this.velocity
-    var objectZVelocity: Double = objectVelocity.z
+    var objectYVelocity: Double = objectVelocity.y
     var gravity: Double = world.gravity
     var deltaVelocity: Double = gravity*deltaTime
-    var finalVelocity: Double = (objectZVelocity - deltaVelocity)
+    var finalVelocity: Double = (objectYVelocity - deltaVelocity)
     //    var halfATSquared: Double = (1/2)*(gravity)*(deltaTime)*(deltaTime)
-    var vNotT: Double = objectZVelocity*deltaTime
+    var vNotT: Double = objectYVelocity*deltaTime
     //    var newZ: Double = vNotT - halfATSquared
-    var newZ: Double = this.location.z + vNotT
-    var newVelocity: PhysicsVector = new PhysicsVector(this.velocity.x, this.velocity.y, finalVelocity)
-    var newNonZVelocity: PhysicsVector = new PhysicsVector(this.velocity.x, this.velocity.y, 0.0)
-    if (this.location.z == 0.0 && this.velocity.z < 0.0) {
-      this.velocity = newNonZVelocity
+    var newY: Double = this.location.y + vNotT
+    var newVelocity: PhysicsVector = new PhysicsVector(this.velocity.x, finalVelocity)
+    var newNonYVelocity: PhysicsVector = new PhysicsVector(this.velocity.x, 0.0)
+    if (this.location.y == 0.0 && this.velocity.y < 0.0) {
+      this.velocity = newNonYVelocity
     }
     else {
       this.velocity = newVelocity
