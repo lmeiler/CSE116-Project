@@ -9,6 +9,8 @@ class World(var gravity: Double, var objects: List[PhysicalObject], var boundari
 
 //  var players: mutable.MutableList[Player] = mutable.MutableList()
 
+  val boundariesSet: List[Boundary] = List.empty
+  var lastUpdateTime: Double = System.nanoTime()
 
   def eliminatePlayers(): Unit = {
 //    val buffer: mutable.Buffer[Player] = this.players.toBuffer
@@ -37,6 +39,15 @@ class World(var gravity: Double, var objects: List[PhysicalObject], var boundari
     }
     else {
       "No Winner Yet"
+    }
+  }
+
+  def update(time: Double): Unit = {
+    var deltaTime: Double = time - lastUpdateTime
+    for (player <- this.players) {
+      val newPotentialLocation = player.computePotentialLocation(deltaTime)
+      player.updateVelocity(this, deltaTime)
+      player.detectCollision(newPotentialLocation, this.boundariesSet)
     }
   }
 }

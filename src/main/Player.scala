@@ -8,6 +8,8 @@ class Player(var maxHealth: Int, var strength: Int, override var location: Physi
 
   //  var health: Int = maxHealth
   val speed: Int = 5
+  val length: Int = 100
+  val width: Int = 10
 
   def takeDamage(projectile: Projectile): Unit = {
     if (projectile.location == this.location) {
@@ -41,14 +43,12 @@ class Player(var maxHealth: Int, var strength: Int, override var location: Physi
     }
   }
 
-    def player_movement(direction: PhysicsVector): Unit = {
-      this.velocity.x = direction.x * speed
-      this.velocity.y = direction.y * speed
-      this.get_orientation()
-    }
-//
-//  override def computePotentialLocation(deltaTime: Double): PhysicsVector = {
-//
-//  }
+  def player_movement(direction: PhysicsVector): Unit = {
+    this.velocity.x = direction.x * speed
+    this.velocity.y = direction.y * speed
+    this.get_orientation()
+  }
+
+
 
 }
