@@ -9,6 +9,8 @@ class World(var gravity: Double, var objects: List[PhysicalObject], var boundari
 
 //  var players: mutable.MutableList[Player] = mutable.MutableList()
 
+  val boundariesSet: List[Boundary] = List.empty
+  var lastUpdateTime: Double = System.nanoTime()
 
   def eliminatePlayers(): Unit = {
 //    val buffer: mutable.Buffer[Player] = this.players.toBuffer
@@ -37,6 +39,31 @@ class World(var gravity: Double, var objects: List[PhysicalObject], var boundari
     }
     else {
       "No Winner Yet"
+    }
+  }
+
+  def playersTakeDamage(): Unit = {
+    for (player <- this.players) {
+
+    }
+  }
+
+  def playerMoves(player: Player): Unit = {
+
+  }
+
+//Luke - I'm trying to work on updating each of the "objects" (meaning players and projectiles) with new locations and hit detection
+// this is not finished by any means
+
+  def update(time: Double): Unit = {
+    var deltaTime: Double = time - lastUpdateTime
+    for (player <- this.players) {
+      val newPotentialLocation = player.computePotentialLocation(deltaTime)
+      player.updateVelocity(this, deltaTime)
+      var collision = player.detectCollision(newPotentialLocation, this.boundariesSet)
+      if (collision == true) {
+        player.location = newPotentialLocation
+      }
     }
   }
 }
