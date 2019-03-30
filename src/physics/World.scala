@@ -52,6 +52,8 @@ class World(var gravity: Double, var objects: List[PhysicalObject], var boundari
 
   }
 
+//Luke - I'm trying to work on updating each of the "objects" (meaning players and projectiles) with new locations and hit detection
+// this is not finished by any means
 
   def update(time: Double): Unit = {
     var deltaTime: Double = time - lastUpdateTime
