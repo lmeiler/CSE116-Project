@@ -1,31 +1,25 @@
 package controller
 
-  import javafx.event.{ActionEvent, EventHandler}
+  import javafx.event._
   import main._
+  import physics._
+  import objects._
 //each class is a different key press
-class pressW(game: Game) extends EventHandler[ActionEvent] {
+
+class PressMovement(player: Player, movement:String) extends EventHandler[ActionEvent] {
   override def handle(event: ActionEvent): Unit = {
 
+    val vector:PhysicsVector = movement match {
+      case "a" =>  new PhysicsVector(-1,0)
+      case "w" =>  new PhysicsVector(0,-1)
+      case "d" =>  new PhysicsVector(1,0)
+    }
+    player.player_movement(vector)
   }
 }
-class pressS(game: Game) extends EventHandler[ActionEvent] {
+class shoot(anobject:Shoot,player: Player) extends EventHandler[ActionEvent] {
   override def handle(event: ActionEvent): Unit = {
-
-  }
-}
-class pressA(game: Game) extends EventHandler[ActionEvent] {
-  override def handle(event: ActionEvent): Unit = {
-
-  }
-}
-class pressD(game: Game) extends EventHandler[ActionEvent] {
-  override def handle(event: ActionEvent): Unit = {
-
-  }
-}
-class pressV(game: Game) extends EventHandler[ActionEvent] {
-  override def handle(event: ActionEvent): Unit = {
-
+    anobject.shooting(player.orientation,player.strength)
   }
 
 }
