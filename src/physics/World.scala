@@ -42,12 +42,26 @@ class World(var gravity: Double, var objects: List[PhysicalObject], var boundari
     }
   }
 
+  def playersTakeDamage(): Unit = {
+    for (player <- this.players) {
+
+    }
+  }
+
+  def playerMoves(player: Player): Unit = {
+
+  }
+
+
   def update(time: Double): Unit = {
     var deltaTime: Double = time - lastUpdateTime
     for (player <- this.players) {
       val newPotentialLocation = player.computePotentialLocation(deltaTime)
       player.updateVelocity(this, deltaTime)
-      player.detectCollision(newPotentialLocation, this.boundariesSet)
+      var collision = player.detectCollision(newPotentialLocation, this.boundariesSet)
+      if (collision == true) {
+        player.location = newPotentialLocation
+      }
     }
   }
 }
