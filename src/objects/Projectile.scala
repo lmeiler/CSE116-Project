@@ -3,7 +3,7 @@ package objects
 import physics.PhysicsVector
 import main._
 
-class Projectile(var location: PhysicsVector, var velocity: PhysicsVector)
+class Projectile(location: PhysicsVector, velocity: PhysicsVector)
   extends InanimateObject(location, velocity) {
 
   var damage: Int = 2
