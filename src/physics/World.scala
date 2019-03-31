@@ -10,7 +10,7 @@ class World(var gravity: Double, var objects: List[PhysicalObject], var boundari
 
 //  var players: mutable.MutableList[Player] = mutable.MutableList()
 
-  val boundariesSet: List[Boundary] = List.empty
+  val boundarievsSet: List[Boundary] = List.empty
   var lastUpdateTime: Double = System.nanoTime()
 
   def eliminatePlayers(): Unit = {
