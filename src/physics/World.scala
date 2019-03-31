@@ -82,8 +82,22 @@ class World(var gravity: Double, var objects: List[PhysicalObject], var boundari
 
 //      This will give the projectile bullet-drop
       projectile.updateVelocity(this, deltaTime)
+
       val projectileWallCollision = projectile.detectCollision(newProjectileLocation, this.boundariesSet)
-      val projectilePlayerCollision = projectile.detectCollision(newProjectileLocation, playerBoundaries)
+      if (projectileWallCollision == true) {
+        projectile.location = newProjectileLocation
+      }
+      if (projectileWallCollision == false) {
+        var projectileBuffer = this.projectiles.toBuffer
+        projectileBuffer - projectile
+        this.projectiles = projectileBuffer.toList
+      }
+      for (player <- this.players) {
+        val projectilePlayerCollision = projectile.detectPlayerCollision(newProjectileLocation, player)
+        if (!projectilePlayerCollision.isEmpty) {
+          projectilePlayerCollision.head.health - 2
+        }
+      }
     }
   }
 }
