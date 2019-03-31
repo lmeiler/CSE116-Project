@@ -19,7 +19,7 @@ class PressMovement(player: Player, movement:String) extends EventHandler[Action
 }
 class shoot(player: Player) extends EventHandler[ActionEvent] {
   override def handle(event: ActionEvent): Unit = {
-    player.shooting()
+    //player.shooting()
   }
 
 }
