@@ -9,6 +9,17 @@
         https://mvnrepository.com/artifact/org.scalatest/scalatest
        -->
         <dependency>
+            <groupId>org.scalafx</groupId>
+            <artifactId>scalafx_2.12</artifactId>
+            <version>11-R16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>12-ea+14</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.scalatest</groupId>
             <artifactId>scalatest_2.12</artifactId>
             <version>3.0.5</version>

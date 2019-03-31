@@ -9,9 +9,9 @@ class TestEliminatePlayers extends FunSuite {
   test("Tests the eliminate player method") {
     val defaultHealth: Int = 20
     val defaultStrength: Int = 5
-    val defaultLocation: PhysicsVector = new PhysicsVector(0.0, 0.0, 0.0)
-    val defaultVelocity: PhysicsVector = new PhysicsVector(0.0, 0.0, 0.0)
-    val defaultOrientation: PhysicsVector = new PhysicsVector(1.0, 0.0, 0.0)
+    val defaultLocation: PhysicsVector = new PhysicsVector(0.0, 0.0)
+    val defaultVelocity: PhysicsVector = new PhysicsVector(0.0, 0.0)
+    val defaultOrientation: PhysicsVector = new PhysicsVector(1.0, 0.0)
 
     val player1: Player = new Player(defaultHealth, defaultStrength, defaultLocation, defaultVelocity, defaultOrientation, username = "ReadyPlayerOne", defaultHealth)
     val player2: Player = new Player(defaultHealth, defaultStrength, defaultLocation, defaultVelocity, defaultOrientation, username = "PlayerTwo", defaultHealth)
