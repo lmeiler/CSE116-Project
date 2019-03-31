@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+        }
+        h1 {
+
+            color: white;
+            text-align: center;
+        }
+
+        p {
+            font-family: verdana;
+            font-size: 20px;
+        }
+        * { padding: 0; margin: 0; }
+        canvas { background: #eee; display: block; margin: 0 auto; }
+
+    </style>
+    <!--<canvas id="myCanvas" width="600" height="700"></canvas>-->
+</head>
+<p style = "font-family:georgia,garamond,serif;font-size:50px;font-style:italic;text-align:center">"BATTLE WORLD"</p>
+
+
+<table style="width:60%">
+    <caption style = "font-family:georgia,garamond,serif;font-size:35px;font-style:italic;text-align:center">
+        Leader-Board</caption>
+    <tr>
+        <th style = "font-family:georgia,garamond,serif;font-size:30px;font-style:italic;text-align:center">
+            Username</th>
+        <th style = "font-family:georgia,garamond,serif;font-size:30px;font-style:italic;text-align:center"
+        >Health</th>
+    </tr>
+    <tr>
+        <td    style = "font-family:georgia,garamond,serif;font-size:25px;font-style:italic;text-align:center"
+        >Player1</td>
+        <td style = "font-family:georgia,garamond,serif;font-size:25px;font-style:italic;text-align:center">30</td>
+    </tr>
+    <tr>
+        <td style = "font-family:georgia,garamond,serif;font-size:25px;font-style:italic;text-align:center">Player2</td>
+        <td style = "font-family:georgia,garamond,serif;font-size:25px;font-style:italic;text-align:center">20</td>
+
+    </tr>
+    <tr>
+        <td style = "font-family:georgia,garamond,serif;font-size:25px;font-style:italic;text-align:center">Player3</td>
+        <td style = "font-family:georgia,garamond,serif;font-size:25px;font-style:italic;text-align:center">10</td>
+
+    </tr>
+</table>
+<p><u>INSTRUCTIONS TO PLAY</u></p>
+<p>This is a multiplayer battle game.
+    Where the players fight with each other till their health is completely taken away by other players.
+    Each players health can be seen in the leader-board.</p>
+<p>
+
+
+v<body onload="startGame()">
+
+<script>
+
+
+    function startGame() {
+        myGameArea.start();
+        myGamePiece = new component(10,200, "blue", 0, 600);
+    }
+
+
+    var myGameArea = {
+
+        canvas : document.createElement("canvas"),
+
+        start : function() {
+
+            this.canvas.width = 1900;
+            this.canvas.height = 900;
+            this.context = this.canvas.getContext("2d");
+            document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+            this.interval = setInterval(updateGameArea, 20);
+            window.addEventListener('keydown', function (e) {
+                myGameArea.keys = (myGameArea.keys || []);
+                myGameArea.keys[e.keyCode] = (e.type == "keydown");
+            })
+            window.addEventListener('keyup', function (e) {
+                myGameArea.keys[e.keyCode] = (e.type == "keydown");
+            })
+        },
+        clear : function(){
+            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        }
+    }
+
+    function component(width, height, color, x, y) {
+        this.gamearea = myGameArea;
+        this.width = width;
+        this.height = height;
+        this.speedX = 0;
+        this.speedY = 0;
+        this.x = x;
+        this.y = y;
+        this.update = function() {
+            ctx = myGameArea.context;
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+        this.newPos = function() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+        }
+    }
+
+
+    function updateGameArea() {
+        myGameArea.clear();
+        myGamePiece.speedX = 0;
+        myGamePiece.speedY = 0;
+        if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.speedX = -10; }
+        if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.speedX = 10; }
+        // if (myGameArea.keys && myGameArea.keys[38]) {myGamePiece.speedY = -1; }
+        // if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speedY = 1; }
+        myGamePiece.newPos();
+        myGamePiece.update();
+        draw();
+    }
+    function ground(){
+        ctx.rect(00, 800, 1900, 150);
+        ctx.fillStyle = "green";
+        ctx.fill();
+        ctx.stroke();
+
+    }
+    function obstacle() {
+        ctx.beginPath();
+        ctx.rect(175, 350, 75, 30);
+        ctx.fillStyle = "brown";
+        ctx.fill();
+        ctx.closePath();
+    }
+    function obstacle1() {
+        ctx.beginPath();
+        ctx.rect(105, 150, 75, 30);
+        ctx.fillStyle = "black";
+        ctx.fill();
+        ctx.closePath();
+    }
+    function obstacle2() {
+        ctx.beginPath();
+        ctx.rect(195, 200, 75, 30);
+        ctx.fillStyle = "black";
+        ctx.fill();
+        ctx.closePath();
+    }
+    function obstacle3() {
+        ctx.beginPath();
+        ctx.rect(395, 200, 75, 30);
+        ctx.fillStyle = "brown";
+        ctx.fill();
+        ctx.closePath();
+    }
+    function obstacle4() {
+        ctx.beginPath();
+        ctx.rect(0, 155, 75, 30);
+        ctx.fillStyle = "brown";
+        ctx.fill();
+        ctx.closePath();
+    }
+    function obstacle5() {
+        ctx.beginPath();
+        ctx.rect(495, 300, 75, 30);
+        ctx.fillStyle = "black";
+        ctx.fill();
+        ctx.closePath();
+    }
+    function obstacle6() {
+        ctx.beginPath();
+        ctx.rect(295, 300, 75, 30);
+        ctx.fillStyle = "brown";
+        ctx.fill();
+        ctx.closePath();
+    }
+    function obstacle7() {
+        ctx.beginPath();
+        ctx.rect(95, 300, 75, 30);
+        ctx.fillStyle = "black";
+        ctx.fill();
+        ctx.closePath();
+    }
+    function obstacle8() {
+        ctx.beginPath();
+        ctx.rect(500, 155, 75, 30);
+        ctx.fillStyle = "brown";
+        ctx.fill();
+        ctx.closePath();
+    }
+
+    function draw(){
+        ground();
+        obstacle();
+        obstacle1();
+        obstacle2();
+        obstacle3();
+        obstacle4();
+        obstacle5();
+        obstacle6();
+        obstacle7();
+        obstacle8();
+    }
+</script>
+</body>
+</html>
