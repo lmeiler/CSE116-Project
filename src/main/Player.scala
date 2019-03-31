@@ -80,10 +80,10 @@ class Player(var maxHealth: Int, var strength: Int, override var location: Physi
 
   var shoot: Projectile = new Projectile(new PhysicsVector(0.0, 0.0), new PhysicsVector(0.0, 0.0))
 
-  def shooting(strength: Int): Unit = {
+  def shooting(): Unit = {
     get_orientation()
-    shoot.velocity.x = this.orientation.x * strength
-    shoot.velocity.y = this.orientation.y * strength
+    shoot.velocity.x = this.orientation.x * 2
+    shoot.velocity.y = this.orientation.y * 2
     shoot.location.x = this.location.x + 0.1
     shoot.location.y = this.location.y + 0.1
   }
