@@ -3,8 +3,8 @@ package main
 import physics._
 import objects._
 
-class Player(var maxHealth: Int, var strength: Int, override var location: PhysicsVector, override var velocity: PhysicsVector,
-             var orientation: PhysicsVector, var username: String, var health: Int) extends PhysicalObject(location, velocity) {
+class Player(maxHealth: Int, strength: Int, location: PhysicsVector, velocity: PhysicsVector,
+             orientation: PhysicsVector, var username: String, var health: Int) extends PhysicalObject(location, velocity) {
 
   //  var health: Int = maxHealth
   val speed: Int = 5
@@ -39,7 +39,7 @@ class Player(var maxHealth: Int, var strength: Int, override var location: Physi
       return newVector
     }
   }
-
+/*
   def takeDamage(projectile: Projectile): Unit = {
     if (projectile.location == this.location) {
       this.health -= projectile.damage
@@ -48,6 +48,7 @@ class Player(var maxHealth: Int, var strength: Int, override var location: Physi
       }
     }
   }
+  */
 
   def get_orientation(): Unit = {
     if (velocity.x < 0 && velocity.y == 0) {

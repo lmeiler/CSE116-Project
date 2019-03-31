@@ -11,10 +11,13 @@ class Projectile(location: PhysicsVector, velocity: PhysicsVector)
   var damage: Int = 2
 
   override def use(player: Player): Unit = {
-    this.velocity.x = player.orientation.x*player.strength
+    /*
+    this.velocity.x = player.orientation.x * player.strength
     this.velocity.y = player.orientation.y*player.strength
     //this.velocity.z = player.orientation.z*player.strength
+    */
   }
+
 
   def detectPlayerCollision(location3: PhysicsVector, player: Player): List[Player] = {
     val boundary = player.playerBoundary
