@@ -9,9 +9,9 @@ class TestCheckWinner extends FunSuite {
   test("Tests if there is one player left in the game, and returns the username if so. Else, return filler statement") {
     val defaultHealth: Int = 20
     val defaultStrength: Int = 5
-    val defaultLocation: PhysicsVector = new PhysicsVector(0.0, 0.0, 0.0)
-    val defaultVelocity: PhysicsVector = new PhysicsVector(0.0, 0.0, 0.0)
-    val defaultOrientation: PhysicsVector = new PhysicsVector(1.0, 0.0, 0.0)
+    val defaultLocation: PhysicsVector = new PhysicsVector(0.0, 0.0)
+    val defaultVelocity: PhysicsVector = new PhysicsVector(0.0, 0.0)
+    val defaultOrientation: PhysicsVector = new PhysicsVector(1.0, 0.0)
 
     val Gerard: Player = new Player(defaultHealth, defaultStrength, defaultLocation, defaultVelocity, defaultOrientation, "GerardOfRivertown", defaultHealth)
     val Jerk: Player = new Player(defaultHealth, defaultStrength, defaultLocation, defaultVelocity, defaultOrientation, "SomeOtherJerk", defaultHealth)
