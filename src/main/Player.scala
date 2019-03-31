@@ -10,8 +10,9 @@ class Player(var maxHealth: Int, var strength: Int, override var location: Physi
   val speed: Int = 5
   val length: Int = 100
   val width: Int = 10
-  var top: PhysicsVector = new PhysicsVector(this.location.y + 50, this.location.x)
-  var bottom: PhysicsVector = new PhysicsVector(this.location.y - 50, this.location.x)
+  var top: PhysicsVector = new PhysicsVector(this.location.x, this.location.y + 50)
+  var bottom: PhysicsVector = new PhysicsVector(this.location.x, this.location.y - 50)
+  val playerBoundary: PlayerBoundary = new PlayerBoundary(bottom, top)
 
   def setTopBottom(): Unit = {
     this.top = new PhysicsVector(this.location.y + 50, this.location.x)
