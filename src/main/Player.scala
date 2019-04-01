@@ -4,7 +4,7 @@ import physics._
 import objects._
 
 class Player(maxHealth: Int, strength: Int, location: PhysicsVector, velocity: PhysicsVector,
-             orientation: PhysicsVector, var username: String, var health: Int) extends PhysicalObject(location, velocity) {
+             var orientation: PhysicsVector, var username: String, var health: Int) extends PhysicalObject(location, velocity) {
 
   //  var health: Int = maxHealth
   val speed: Int = 5
