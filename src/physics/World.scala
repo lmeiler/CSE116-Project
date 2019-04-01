@@ -73,8 +73,8 @@ class World(var gravity: Double, var boundaries: List[Boundary], var players: Li
       var collision = player.detectCollision(newPotentialLocation, this.boundariesSet)
       if (collision == true) {
         player.location = newPotentialLocation
-        player.bottom = new PhysicsVector(player.location.x, player.location.y - 50)
-        player.top = new PhysicsVector(player.location.x, player.location.y + 50)
+        player.bottom = new PhysicsVector(player.location.x, player.location.y)
+        player.top = new PhysicsVector(player.location.x, player.location.y + 100)
       }
     }
     for (projectile <- this.projectiles) {

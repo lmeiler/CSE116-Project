@@ -11,13 +11,13 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
   val length: Int = 100
   val width: Int = 10
 
-  var top: PhysicsVector = new PhysicsVector(this.location.x, this.location.y + 50)
-  var bottom: PhysicsVector = new PhysicsVector(this.location.x, this.location.y - 50)
+  var top: PhysicsVector = new PhysicsVector(this.location.x, this.location.y + 100)
+  var bottom: PhysicsVector = new PhysicsVector(this.location.x, this.location.y)
   val playerBoundary: PlayerBoundary = new PlayerBoundary(bottom, top)
 
   def setTopBottom(): Unit = {
-    this.top = new PhysicsVector(this.location.y + 50, this.location.x)
-    this.bottom = new PhysicsVector(this.location.y - 50, this.location.x)
+    this.top = new PhysicsVector(this.location.y + 100, this.location.x)
+    this.bottom = new PhysicsVector(this.location.y, this.location.x)
   }
 
   override def computePotentialLocation(deltaTime: Double): PhysicsVector = {
