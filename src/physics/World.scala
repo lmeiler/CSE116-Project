@@ -5,7 +5,7 @@ import objects._
 import scala.collection.mutable
 import physics._
 
-class World(var gravity: Double, var objects: List[PhysicalObject], var boundaries: List[Boundary], var players: List[Player],
+class World(var gravity: Double, var boundaries: List[Boundary], var players: List[Player],
             var projectiles: List[Projectile]) {
 
 //  var players: mutable.MutableList[Player] = mutable.MutableList()

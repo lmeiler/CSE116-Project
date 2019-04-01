@@ -13,13 +13,13 @@ class TestCheckWinner extends FunSuite {
     val defaultVelocity: PhysicsVector = new PhysicsVector(0.0, 0.0)
     val defaultOrientation: PhysicsVector = new PhysicsVector(1.0, 0.0)
 
-    val Gerard: Player = new Player(defaultHealth, defaultStrength, defaultLocation, defaultVelocity, defaultOrientation, "GerardOfRivertown", defaultHealth)
-    val Jerk: Player = new Player(defaultHealth, defaultStrength, defaultLocation, defaultVelocity, defaultOrientation, "SomeOtherJerk", defaultHealth)
+    val Gerard: Player = new Player(defaultLocation, defaultVelocity, "GerardOfRivertown")
+    val Jerk: Player = new Player(defaultLocation, defaultVelocity, "SomeOtherJerk")
 
     val playerList: List[Player] = List(Gerard, Jerk)
-    val world1: World = new World(9.8, List(), List(), List(Gerard), List())
-    val world2: World = new World(9.8, List(), List(), List(Gerard, Jerk), List())
-    val world3: World = new World(9.8, List(), List(), List(), List())
+    val world1: World = new World(9.8, List(), List(Gerard), List())
+    val world2: World = new World(9.8, List(), List(Gerard, Jerk), List())
+    val world3: World = new World(9.8, List(), List(), List())
 
     assert(world1.checkWinner() == "GerardOfRivertown has won!!")
     assert(world2.checkWinner() == "No Winner Yet")
