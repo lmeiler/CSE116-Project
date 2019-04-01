@@ -4,6 +4,7 @@ package controller
   import main._
   import physics._
   import objects._
+  import play.api._
 //each class is a different key press
 
 class PressMovement(player: Player, movement:String) extends EventHandler[ActionEvent] {
@@ -19,7 +20,7 @@ class PressMovement(player: Player, movement:String) extends EventHandler[Action
 }
 class shoot(player: Player) extends EventHandler[ActionEvent] {
   override def handle(event: ActionEvent): Unit = {
-    //player.shooting()
+    player.shooting()
   }
 
 }
