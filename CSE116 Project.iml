@@ -20,15 +20,6 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:linux:12-ea+14" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:12-ea+14" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:linux:12-ea+14" level="project" />
-    <orderEntry type="library" name="Maven: org.scalafx:scalafx_2.12:11-R16" level="project" />
-    <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.12.7" level="project" />
-    <orderEntry type="library" name="Maven: org.scala-lang:scala-reflect:2.12.7" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:12-ea+14" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:mac:12-ea+14" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:12-ea+14" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:mac:12-ea+14" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:12-ea+14" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:mac:12-ea+14" level="project" />
     <orderEntry type="library" name="Maven: org.scalatest:scalatest_2.12:3.0.5" level="project" />
     <orderEntry type="library" name="Maven: org.scalactic:scalactic_2.12:3.0.5" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-xml_2.12:1.0.6" level="project" />
@@ -42,5 +33,6 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.8" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.8" level="project" />
     <orderEntry type="library" name="Maven: org.scalaj:scalaj-http_2.12:2.4.1" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-js:scalajs-library_2.12:1.0.0-M4" level="project" />
   </component>
 </module>
