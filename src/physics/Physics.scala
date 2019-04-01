@@ -103,23 +103,24 @@
 //    }
 //  }
 //
-////  def main(args: Array[String]): Unit = {
-////    var locationVector1: PhysicsVector = new PhysicsVector(5.0, 5.0, 0.0)
-////    var velocityVector1: PhysicsVector = new PhysicsVector(1.0, 2.0, -3.0)
-////    var object1: PhysicalObject = new PhysicalObject(locationVector1, velocityVector1)
-////    var world: World = new World(9.8)
-////    (updateVelocity(object1, world, 1.0))
-////    println(object1.velocity.z)
-////    var computeLocation : PhysicsVector = computePotentialLocation(object1, 1.0)
-////    println(computeLocation)
-////    var locationVector2: PhysicsVector = new PhysicsVector(-2.0, -2.0, 0.0)
-////    var velocityVector2: PhysicsVector = new PhysicsVector(0.0, 0.0, 0.0)
-////    var object2: PhysicalObject = new PhysicalObject(locationVector2, velocityVector2)
-////    var boundaryVector1: PhysicsVector = new PhysicsVector(-20.0, 0.0, 0.0)
-////    var boundaryVector2: PhysicsVector = new PhysicsVector(-10.0, 0.0, 0.0)
-////    var boundary2: Boundary = new Boundary(boundaryVector1, boundaryVector2)
-////    var finalLocation2: PhysicsVector = new PhysicsVector(5.0, 5.0, 0.0)
-////    var world: World = new World(10.0, List(object2), List(boundary2))
-////    println(detectCollision(object2, finalLocation2, boundary2))
-//  }
+//  def main(args: Array[String]): Unit = {
+//    var locationVector1: PhysicsVector = new PhysicsVector(5.0, 5.0, 0.0)
+//    var velocityVector1: PhysicsVector = new PhysicsVector(1.0, 2.0, -3.0)
+//    var object1: PhysicalObject = new PhysicalObject(locationVector1, velocityVector1)
+//    var world: World = new World(9.8)
+//    (updateVelocity(object1, world, 1.0))
+//    println(object1.velocity.z)
+//    var computeLocation : PhysicsVector = computePotentialLocation(object1, 1.0)
+//    println(computeLocation)
+//    var locationVector2: PhysicsVector = new PhysicsVector(-2.0, -2.0, 0.0)
+//    var velocityVector2: PhysicsVector = new PhysicsVector(0.0, 0.0, 0.0)
+//    var object2: PhysicalObject = new PhysicalObject(locationVector2, velocityVector2)
+//    var boundaryVector1: PhysicsVector = new PhysicsVector(-20.0, 0.0, 0.0)
+//    var boundaryVector2: PhysicsVector = new PhysicsVector(-10.0, 0.0, 0.0)
+//    var boundary2: Boundary = new Boundary(boundaryVector1, boundaryVector2)
+//    var finalLocation2: PhysicsVector = new PhysicsVector(5.0, 5.0, 0.0)
+//    var world: World = new World(10.0, List(object2), List(boundary2))
+//    println(detectCollision(object2, finalLocation2, boundary2))
+//
+//}
 //}

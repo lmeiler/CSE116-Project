@@ -3,13 +3,14 @@ package main
 import physics._
 import objects._
 
-class Player(var maxHealth: Int, var strength: Int, override var location: PhysicsVector, override var velocity: PhysicsVector,
-             var orientation: PhysicsVector, var username: String, var health: Int) extends PhysicalObject(location, velocity) {
+class Player(location: PhysicsVector, velocity: PhysicsVector, var username: String) extends PhysicalObject(location, velocity) {
 
-  //  var health: Int = maxHealth
+  val orientation: PhysicsVector = new PhysicsVector(1,0)
+  var health: Int = 10
   val speed: Int = 5
   val length: Int = 100
   val width: Int = 10
+
   var top: PhysicsVector = new PhysicsVector(this.location.x, this.location.y + 50)
   var bottom: PhysicsVector = new PhysicsVector(this.location.x, this.location.y - 50)
   val playerBoundary: PlayerBoundary = new PlayerBoundary(bottom, top)
@@ -40,14 +41,14 @@ class Player(var maxHealth: Int, var strength: Int, override var location: Physi
     }
   }
 
-  def takeDamage(projectile: Projectile): Unit = {
-    if (projectile.location == this.location) {
-      this.health -= projectile.damage
-      if (this.health < 0) {
-        this.health = 0
-      }
-    }
-  }
+//  def takeDamage(projectile: Projectile): Unit = {
+//    if (projectile.location == this.location) {
+//      this.health -= projectile.damage
+//      if (this.health < 0) {
+//        this.health = 0
+//      }
+//    }
+//  }
 
   def get_orientation(): Unit = {
     if (velocity.x < 0 && velocity.y == 0) {
