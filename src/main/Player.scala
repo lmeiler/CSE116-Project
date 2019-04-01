@@ -40,14 +40,14 @@ class Player(var maxHealth: Int, var strength: Int, override var location: Physi
     }
   }
 
-  def takeDamage(projectile: Projectile): Unit = {
-    if (projectile.location == this.location) {
-      this.health -= projectile.damage
-      if (this.health < 0) {
-        this.health = 0
-      }
-    }
-  }
+//  def takeDamage(projectile: Projectile): Unit = {
+//    if (projectile.location == this.location) {
+//      this.health -= projectile.damage
+//      if (this.health < 0) {
+//        this.health = 0
+//      }
+//    }
+//  }
 
   def get_orientation(): Unit = {
     if (velocity.x < 0 && velocity.y == 0) {
