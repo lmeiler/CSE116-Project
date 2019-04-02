@@ -75,6 +75,7 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
     val projectileLocation: PhysicsVector = new PhysicsVector(this.location.x + 1, this.location.y)
     val projectileSpeed: PhysicsVector = new PhysicsVector(15, 0)
     val projectile: Projectile = new Projectile(projectileLocation, projectileSpeed)
+    this.world.projectiles += projectile
   }
 
   def setTopBottom(): Unit = {

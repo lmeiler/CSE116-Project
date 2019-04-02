@@ -8,16 +8,19 @@ import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.paint.Color
 import scalafx.scene.shape.{Rectangle, Shape}
 import scalafx.scene.{Group, Scene}
+import scala.collection.mutable
+
 
 object Game1 {
   var lastUpdateTime: Long = System.nanoTime()
-  var player = new Player(new PhysicsVector(0, 1), new PhysicsVector(1, 1), "abc")
+  var player = new Player(new PhysicsVector(0, 1), new PhysicsVector(1, 1), "abc", game)
+  var playerBuffer = mutable.Buffer[Player](player)
   val scale_f: Double = 30.0
   val windowWidth: Double = 30 * scale_f
   val windowHeight: Double = 30 * scale_f
   var sceneGraphics: Group = new Group {}
   var boundaries: List[Boundary] = List()
-  var game = new World(9.8, boundaries, player,)
+  var game = new World(playerBuffer, boundaries)
   val playerSprite: Shape = playerSprite(player.location.x,player.location.y, Color.Blue)
 
   def computeDistance(v1: PhysicsVector, v2: PhysicsVector): Double = {
