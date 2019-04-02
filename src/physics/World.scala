@@ -69,8 +69,7 @@ class World(val boundariesSet: List[Boundary]) {
 //Luke - I'm trying to work on updating each of the "objects" (meaning players and projectiles) with new locations and hit detection
 // this is not finished by any means
 
-  def update(): Unit = {
-    var deltaTime: Double = 1
+  def update(deltaTime: Double): Unit = {
     for (player <- this.players) {
       player.update(deltaTime)
     }

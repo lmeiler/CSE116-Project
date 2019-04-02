@@ -72,7 +72,7 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
   }
 
   def createProjectile(): Unit = {
-    val projectileLocation: PhysicsVector = new PhysicsVector(this.location.x + 1, this.location.y)
+    val projectileLocation: PhysicsVector = new PhysicsVector(this.location.x + 50, this.location.y + 50)
     val projectileSpeed: PhysicsVector = new PhysicsVector(15, 0)
     val projectile: Projectile = new Projectile(projectileLocation, projectileSpeed)
     this.world.projectiles += projectile

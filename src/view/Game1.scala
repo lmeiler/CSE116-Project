@@ -23,8 +23,8 @@ object Game1 extends JFXApp {
   val windowHeight: Double = 30 * scale_f
   var sceneGraphics: Group = new Group {}
   var boundaries: List[Boundary] = List()
-  var game = new World(boundaries,player)
-  var player = new Player(new PhysicsVector(0, 1), new PhysicsVector(1, 1), "abc")
+  var game = new World(boundaries)
+  var player = new Player(new PhysicsVector(0, 1), new PhysicsVector(1, 1), "abc", game)
   val playerSprite: Shape = playerSprite(player.location.x, player.location.y, Color.Blue)
   var playerBuffer: mutable.ListBuffer[Player] = ListBuffer[Player](player)
   game.players += player
@@ -83,8 +83,11 @@ object Game1 extends JFXApp {
       val dt: Double = (time - lastUpdateTime) / 1000000000.0
       lastUpdateTime = time
       game.update(dt)
-      playerSprite.translateX.value = 100
-//      playerSprite.translateY.value = 10
+
+//      playerSprite.translateX.value = game.players(0).location.x
+//      playerSprite.translateY.value = game.players(0).location.y
+      playerSprite.translateY.value = 10
+      playerSprite.translateX.value = 10
 
     }
     AnimationTimer(update).start()
