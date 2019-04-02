@@ -44,15 +44,15 @@ class World(var players: mutable.Buffer[Player], val boundariesSet: List[Boundar
     }
   }
 
-  def playersTakeDamage(): Unit = {
-    for (player <- this.players) {
+//  def playersTakeDamage(): Unit = {
+//    for (player <- this.players) {
+//
+//    }
+//  }
 
-    }
-  }
-
-  def playerMoves(player: Player): Unit = {
-
-  }
+//  def playerMoves(player: Player): Unit = {
+//
+//  }
 
   def createPlayerBoundaries(): List[Boundary] = {
     var boundaryList: List[Boundary] = List.empty
@@ -67,6 +67,9 @@ class World(var players: mutable.Buffer[Player], val boundariesSet: List[Boundar
 
   def update(): Unit = {
     var deltaTime: Double = 1
+    for (player <- this.players) {
+      player.update(deltaTime)
+    }
     var playerBoundaries: List[Boundary] = createPlayerBoundaries()
     for (player <- this.players) {
       val newPotentialLocation = player.computePotentialLocation(deltaTime)
