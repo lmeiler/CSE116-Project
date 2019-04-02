@@ -9,11 +9,11 @@ package controller
   import javafx.event.EventHandler
 //each class is a different key press
 
-class PressMovement(player: Player, movement:String) extends EventHandler[KeyEvent] {
+class PressMovement(player: Player) extends EventHandler[KeyEvent] {
   override def handle(event: KeyEvent): Unit = {
     val keyCode = event.getCode
     event.getEventType.getName match {
-      case "KEY_RELEASED" => movement match {
+      case "KEY_RELEASED" => keyCode match {
           case "A" => player.player_movement(new PhysicsVector(-1, 0))
           case "W" => player.player_movement(new PhysicsVector(0, -1))
           case "D" => player.player_movement(new PhysicsVector(1, 0))
