@@ -12,7 +12,7 @@ class TestShooting extends FunSuite {
     val Velocity: PhysicsVector = new PhysicsVector(3.0, 0.0)
     val Orientation: PhysicsVector = new PhysicsVector(1.0, 0.0)
 
-    val player1 = new Player(Location, Velocity, "Player")
+    val player1 = new Player(defaultHealth, defaultStrength, Location, Velocity, Orientation, "Player", 15)
     player1.shoot = new Projectile(new PhysicsVector(0.0, 0.0), new PhysicsVector(0.0, 0.0))
     player1.shooting()
 
