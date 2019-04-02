@@ -22,7 +22,7 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
 
   // THESE ARE THE API METHODS
   def leftPressed(): Unit = {
-    leftPress = true
+    leftPress =  true
     this.state.leftPress()
   }
 
@@ -72,7 +72,7 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
   }
 
   def createProjectile(): Unit = {
-    val projectileLocation: PhysicsVector = new PhysicsVector(this.location.x + 50, this.location.y + 50)
+    val projectileLocation: PhysicsVector = new PhysicsVector(this.location.x + 1, this.location.y + 50)
     val projectileSpeed: PhysicsVector = new PhysicsVector(15, 0)
     val projectile: Projectile = new Projectile(projectileLocation, projectileSpeed)
     this.world.projectiles += projectile

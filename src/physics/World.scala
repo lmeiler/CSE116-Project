@@ -70,11 +70,10 @@ class World(val boundariesSet: List[Boundary]) {
 // this is not finished by any means
 
   def update(deltaTime: Double): Unit = {
-    for (player <- this.players) {
-      player.update(deltaTime)
-    }
+
     var playerBoundaries: List[Boundary] = createPlayerBoundaries()
     for (player <- this.players) {
+      player.update(deltaTime)
       val newPotentialLocation = player.computePotentialLocation(deltaTime)
       player.updateVelocity(this, deltaTime)
       var collision = player.detectCollision(newPotentialLocation, this.boundariesSet)
