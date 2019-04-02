@@ -2,10 +2,13 @@ package physics
 
 import main.Player
 import objects._
+
 import scala.collection.mutable
 import physics._
 
-class World(var players: mutable.Buffer[Player], val boundariesSet: List[Boundary]) {
+import scala.collection.mutable.ListBuffer
+
+class World(val boundariesSet: List[Boundary]) {
 
 //  var players: mutable.MutableList[Player] = mutable.MutableList()
 
@@ -13,6 +16,7 @@ class World(var players: mutable.Buffer[Player], val boundariesSet: List[Boundar
   val gravity : Double = 9.8
 //  val boundariesSet: List[Boundary] = List.empty
   var lastUpdateTime: Double = System.nanoTime()
+  var players: mutable.ListBuffer[Player] = mutable.ListBuffer[Player]()
 
   def eliminatePlayers(): Unit = {
 //    val buffer: mutable.Buffer[Player] = this.players.toBuffer
