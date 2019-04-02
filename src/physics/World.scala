@@ -5,12 +5,13 @@ import objects._
 import scala.collection.mutable
 import physics._
 
-class World(var players: mutable.Buffer[Player], var projectiles: List[Projectile]) {
+class World(var players: mutable.Buffer[Player], val boundariesSet: List[Boundary]) {
 
 //  var players: mutable.MutableList[Player] = mutable.MutableList()
 
+  var projectiles: mutable.Buffer[Projectile] = mutable.Buffer.empty
   val gravity : Double = 9.8
-  val boundariesSet: List[Boundary] = List.empty
+//  val boundariesSet: List[Boundary] = List.empty
   var lastUpdateTime: Double = System.nanoTime()
 
   def eliminatePlayers(): Unit = {
@@ -88,9 +89,9 @@ class World(var players: mutable.Buffer[Player], var projectiles: List[Projectil
         projectile.location = newProjectileLocation
       }
       if (projectileWallCollision == false) {
-        var projectileBuffer = this.projectiles.toBuffer
-        projectileBuffer - projectile
-        this.projectiles = projectileBuffer.toList
+//        var projectileBuffer = this.projectiles.toBuffer
+        this.projectiles - projectile
+//        this.projectiles = projectileBuffer.toList
       }
       for (player <- this.players) {
         val projectilePlayerCollision = projectile.detectPlayerCollision(newProjectileLocation, player)
