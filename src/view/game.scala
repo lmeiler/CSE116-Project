@@ -38,6 +38,7 @@ object game extends JFXApp {
 //  var world=new World(oplayer)
     var player=Rectangle(200,200,50,100)
 
+  var conX=
 
   stage = new PrimaryStage {
     addEventHandler(KeyEvent.ANY,new PressMovement(oplayer))
@@ -46,6 +47,7 @@ object game extends JFXApp {
       val dt: Double = (time - lastUpdateTime) / 1000000000.0
       lastUpdateTime = time
 //      oplayer.update(dt)
+
 
 
       title = "Battle World"
