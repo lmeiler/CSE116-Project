@@ -11,13 +11,13 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
   val length: Int = 100
   val width: Int = 10
 
-  var top: PhysicsVector = new PhysicsVector(this.location.x, this.location.y + 50)
-  var bottom: PhysicsVector = new PhysicsVector(this.location.x, this.location.y - 50)
+  var top: PhysicsVector = new PhysicsVector(this.location.x, this.location.y + 100)
+  var bottom: PhysicsVector = new PhysicsVector(this.location.x, this.location.y)
   val playerBoundary: PlayerBoundary = new PlayerBoundary(bottom, top)
 
   def setTopBottom(): Unit = {
-    this.top = new PhysicsVector(this.location.y + 50, this.location.x)
-    this.bottom = new PhysicsVector(this.location.y - 50, this.location.x)
+    this.top = new PhysicsVector(this.location.y + 100, this.location.x)
+    this.bottom = new PhysicsVector(this.location.y, this.location.x)
   }
 
   override def computePotentialLocation(deltaTime: Double): PhysicsVector = {
@@ -79,14 +79,14 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
     this.get_orientation()
   }
 
-  var shoot: Projectile = new Projectile(new PhysicsVector(0.0, 0.0), new PhysicsVector(0.0, 0.0))
+  var projectile: Projectile = new Projectile(new PhysicsVector(0.0, 0.0), new PhysicsVector(0.0, 0.0))
 
   def shooting(): Unit = {
     get_orientation()
-    shoot.velocity.x = this.orientation.x * 2
-    shoot.velocity.y = this.orientation.y * 2
-    shoot.location.x = this.location.x + 0.1
-    shoot.location.y = this.location.y + 0.1
+    projectile.velocity.x = this.orientation.x * 2
+    projectile.velocity.y = this.orientation.y * 2
+    projectile.location.x = this.location.x + 0.1
+    projectile.location.y = this.location.y + 0.1
   }
 
 }

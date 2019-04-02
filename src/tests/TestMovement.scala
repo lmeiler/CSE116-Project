@@ -13,7 +13,7 @@ class TestMovement extends FunSuite{
     val Orientation: PhysicsVector = new PhysicsVector(1.0, 0.0)
 
     val player1 = new Player(Location, Velocity, "Player")
-    player1.shoot = new Projectile(new PhysicsVector(0.0, 0.0), new PhysicsVector(0.0, 0.0))
+    player1.projectile = new Projectile(new PhysicsVector(0.0, 0.0), new PhysicsVector(0.0, 0.0))
     val direction1: PhysicsVector = new PhysicsVector(-1.0, 0.0)
     player1.player_movement(direction1)
     assert(player1.velocity.x == -5.0 )
@@ -31,7 +31,7 @@ class TestMovement extends FunSuite{
     val Orientation: PhysicsVector = new PhysicsVector(1.0, 0.0)
 
     val player1 = new Player(Location, Velocity, "Player")
-    player1.shoot = new Projectile(new PhysicsVector(0.0, 0.0), new PhysicsVector(0.0, 0.0))
+    player1.projectile = new Projectile(new PhysicsVector(0.0, 0.0), new PhysicsVector(0.0, 0.0))
     val direction1: PhysicsVector = new PhysicsVector(0.0, 1.0)
     player1.player_movement(direction1)
     assert(player1.velocity.x == 0.0 )
