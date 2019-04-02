@@ -64,14 +64,14 @@ class World(var gravity: Double, var boundaries: List[Boundary], var players: Li
 //Luke - I'm trying to work on updating each of the "objects" (meaning players and projectiles) with new locations and hit detection
 // this is not finished by any means
 
-  def update(time: Double): Unit = {
-    var deltaTime: Double = time - lastUpdateTime
+  def update(): Unit = {
+    var deltaTime: Double = 1
     var playerBoundaries: List[Boundary] = createPlayerBoundaries()
     for (player <- this.players) {
       val newPotentialLocation = player.computePotentialLocation(deltaTime)
       player.updateVelocity(this, deltaTime)
       var collision = player.detectCollision(newPotentialLocation, this.boundariesSet)
-      if (collision == true) {
+      if (collision == true){
         player.location = newPotentialLocation
         player.bottom = new PhysicsVector(player.location.x, player.location.y)
         player.top = new PhysicsVector(player.location.x, player.location.y + 100)

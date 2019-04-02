@@ -79,14 +79,14 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
     this.get_orientation()
   }
 
-  var shoot: Projectile = new Projectile(new PhysicsVector(0.0, 0.0), new PhysicsVector(0.0, 0.0))
+  var projectile: Projectile = new Projectile(new PhysicsVector(0.0, 0.0), new PhysicsVector(0.0, 0.0))
 
   def shooting(): Unit = {
     get_orientation()
-    shoot.velocity.x = this.orientation.x * 2
-    shoot.velocity.y = this.orientation.y * 2
-    shoot.location.x = this.location.x + 0.1
-    shoot.location.y = this.location.y + 0.1
+    projectile.velocity.x = this.orientation.x * 2
+    projectile.velocity.y = this.orientation.y * 2
+    projectile.location.x = this.location.x + 0.1
+    projectile.location.y = this.location.y + 0.1
   }
 
 }
