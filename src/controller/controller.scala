@@ -13,13 +13,13 @@ class PressMovement(player: Player) extends EventHandler[KeyEvent] {
   override def handle(event: KeyEvent): Unit = {
     val keyCode = event.getCode
     event.getEventType.getName match {
-      case "KEY_RELEASED" => keyCode match {
+      case "KEY_RELEASED" => keyCode.getName match {
           case "A" => player.player_movement(new PhysicsVector(-1, 0))
           case "W" => player.player_movement(new PhysicsVector(0, -1))
           case "D" => player.player_movement(new PhysicsVector(1, 0))
           case _ =>
       }
-      case "KEY_PRESSED" => movement match {
+      case "KEY_PRESSED" => keyCode.getName match {
         case "A" => player.player_movement(new PhysicsVector(-1, 0))
         case "W" => player.player_movement(new PhysicsVector(0, -1))
         case "D" => player.player_movement(new PhysicsVector(1, 0))
@@ -33,8 +33,8 @@ class PressMovement(player: Player) extends EventHandler[KeyEvent] {
 
   }
 }
-class shoot(player: Player) extends EventHandler[ActionEvent] {
-  override def handle(event: ActionEvent): Unit = {
+class shoot(player: Player) extends EventHandler[KeyEvent] {
+  override def handle(event: KeyEvent): Unit = {
     player.shooting()
   }
 

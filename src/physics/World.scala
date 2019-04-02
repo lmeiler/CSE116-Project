@@ -5,28 +5,29 @@ import objects._
 import scala.collection.mutable
 import physics._
 
-class World(var gravity: Double, var boundaries: List[Boundary], var players: List[Player],
-            var projectiles: List[Projectile]) {
+class World(var players: mutable.Buffer[Player], val boundariesSet: List[Boundary]) {
 
 //  var players: mutable.MutableList[Player] = mutable.MutableList()
 
-  val boundariesSet: List[Boundary] = List.empty
+  var projectiles: mutable.Buffer[Projectile] = mutable.Buffer.empty
+  val gravity : Double = 9.8
+//  val boundariesSet: List[Boundary] = List.empty
   var lastUpdateTime: Double = System.nanoTime()
 
   def eliminatePlayers(): Unit = {
 //    val buffer: mutable.Buffer[Player] = this.players.toBuffer
-    val list1: List[Player] = this.players
+//    val list1: List[Player] = this.players
     var index: Int = 0
-    var buffer: mutable.Buffer[Player] = mutable.Buffer()
-    for (player <- list1) {
+//    var buffer: mutable.Buffer[Player] = mutable.Buffer()
+    for (player <- this.players) {
       if (player.health != 0) {
 //        buffer.remove(index)
-        buffer += player
+        this.players -= player
       }
       index += 1
     }
-    val newList: List[Player] = buffer.toList
-    this.players = newList
+//    val newList: List[Player] = buffer.toList
+//    this.players = newList
   }
 
   def checkWinner(): String = {
@@ -43,15 +44,15 @@ class World(var gravity: Double, var boundaries: List[Boundary], var players: Li
     }
   }
 
-  def playersTakeDamage(): Unit = {
-    for (player <- this.players) {
+//  def playersTakeDamage(): Unit = {
+//    for (player <- this.players) {
+//
+//    }
+//  }
 
-    }
-  }
-
-  def playerMoves(player: Player): Unit = {
-
-  }
+//  def playerMoves(player: Player): Unit = {
+//
+//  }
 
   def createPlayerBoundaries(): List[Boundary] = {
     var boundaryList: List[Boundary] = List.empty
@@ -66,6 +67,9 @@ class World(var gravity: Double, var boundaries: List[Boundary], var players: Li
 
   def update(): Unit = {
     var deltaTime: Double = 1
+    for (player <- this.players) {
+      player.update(deltaTime)
+    }
     var playerBoundaries: List[Boundary] = createPlayerBoundaries()
     for (player <- this.players) {
       val newPotentialLocation = player.computePotentialLocation(deltaTime)
@@ -88,9 +92,9 @@ class World(var gravity: Double, var boundaries: List[Boundary], var players: Li
         projectile.location = newProjectileLocation
       }
       if (projectileWallCollision == false) {
-        var projectileBuffer = this.projectiles.toBuffer
-        projectileBuffer - projectile
-        this.projectiles = projectileBuffer.toList
+//        var projectileBuffer = this.projectiles.toBuffer
+        this.projectiles - projectile
+//        this.projectiles = projectileBuffer.toList
       }
       for (player <- this.players) {
         val projectilePlayerCollision = projectile.detectPlayerCollision(newProjectileLocation, player)
