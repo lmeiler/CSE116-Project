@@ -37,15 +37,10 @@ class PressMovement(player: Player) extends EventHandler[KeyEvent] {
 class shoot(player: Player) extends EventHandler[KeyEvent] {
   override def handle(event: KeyEvent): Unit = {
     val keyCode = event.getCode
-    event.getEventType.getName match {
-      case "KEY_PRESSED" => keyCode.getName match {
-        case "V" => player.shoot()
-        case _ =>
-      }
-      case _ =>
+    if (event.getEventType.getName == "KEY_PRESSED" && keyCode.getName) {}
 
-    }
-    Game1.makebullet
+
+    Game1.makeBullet
   }
 
 }
