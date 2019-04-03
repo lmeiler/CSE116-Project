@@ -94,14 +94,8 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
     var yDistanceTraveled: Double = velocityY * deltaTime
     var newXLocation: Double = locationX + xDistanceTraveled
     var newYLocation: Double = locationY + yDistanceTraveled
-    if (newYLocation <= 0) {
-      var groundVector: PhysicsVector = new PhysicsVector(newXLocation, 0.0)
-      return groundVector
-    }
-    else {
-      var newVector: PhysicsVector = new PhysicsVector(newXLocation, newYLocation)
-      return newVector
-    }
+    var newVector: PhysicsVector = new PhysicsVector(newXLocation, newYLocation)
+    return newVector
   }
 
 //  def takeDamage(projectile: Projectile): Unit = {

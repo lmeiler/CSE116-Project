@@ -19,14 +19,8 @@ abstract class PhysicalObject(var location: PhysicsVector, var velocity: Physics
     var newXLocation: Double = locationX + xDistanceTraveled
     var newYLocation: Double = locationY + yDistanceTraveled
 //    var newZLocation: Double = (locationZ + zDistanceTraveled)
-    if (newYLocation <= 0) {
-      var groundVector: PhysicsVector = new PhysicsVector(newXLocation, 0.0)
-      return groundVector
-    }
-    else {
-      var newVector: PhysicsVector = new PhysicsVector(newXLocation, newYLocation)
-      return newVector
-    }
+    var newVector: PhysicsVector = new PhysicsVector(newXLocation, newYLocation)
+    return newVector
   }
 
   def updateVelocity(world: World, deltaTime: Double): Unit = {
@@ -41,12 +35,7 @@ abstract class PhysicalObject(var location: PhysicsVector, var velocity: Physics
     var newY: Double = this.location.y + vNotT
     var newVelocity: PhysicsVector = new PhysicsVector(this.velocity.x, finalVelocity)
     var newNonYVelocity: PhysicsVector = new PhysicsVector(this.velocity.x, 0.0)
-    if (this.location.y == 0.0 && this.velocity.y < 0.0) {
-      this.velocity = newNonYVelocity
-    }
-    else {
-      this.velocity = newVelocity
-    }
+    this.velocity = newVelocity
   }
 
   def detectCollision(location3: PhysicsVector, boundaries: List[Boundary]): Boolean = {

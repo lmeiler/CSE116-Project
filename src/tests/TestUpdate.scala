@@ -14,10 +14,11 @@ class TestUpdate extends FunSuite {
     var player2: Player = new Player(new PhysicsVector(70, 0), new PhysicsVector(0, 0), "Player2", world)
 
     val players: List[Player] = List(player1, player2)
+    world.players += player1
+    world.players += player2
 
     // Press left to player1
     player1.rightPressed()
-
     player2.leftPressed()
 
     world.update(1.0)

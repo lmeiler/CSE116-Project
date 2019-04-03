@@ -28,6 +28,8 @@ object Game1 extends JFXApp {
   val playerSprite: Shape = playerSprite(player.location.x, player.location.y, Color.Blue)
   var playerBuffer: mutable.ListBuffer[Player] = ListBuffer[Player](player)
   game.players += player
+  val players = game.players
+  val six = 6
 
   def computeDistance(v1: PhysicsVector, v2: PhysicsVector): Double = {
     Math.sqrt(Math.pow(v1.x - v2.x, 2.0) + Math.pow(v1.y - v2.y, 2.0))
@@ -84,10 +86,10 @@ object Game1 extends JFXApp {
       lastUpdateTime = time
       game.update(dt)
 
-//      playerSprite.translateX.value = game.players(0).location.x
-//      playerSprite.translateY.value = game.players(0).location.y
-      playerSprite.translateY.value = 10
-      playerSprite.translateX.value = 10
+      playerSprite.translateX.value = game.players.head.location.x
+      playerSprite.translateY.value = game.players.head.location.y
+//      playerSprite.translateY.value = 10
+//      playerSprite.translateX.value = 10
 
     }
     AnimationTimer(update).start()
