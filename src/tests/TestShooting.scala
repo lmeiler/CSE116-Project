@@ -26,11 +26,11 @@ class TestShooting extends FunSuite {
 
     assert(world.projectiles(0).location.x == 11)
     assert(world.projectiles(0).location.y == 50)
-    assert(world.projectiles(0).velocity.x == 15)
+    assert(world.projectiles(0).velocity.x == 200)
     assert(world.projectiles(0).velocity.y == 0)
     assert(world.projectiles(1).location.x == 71)
     assert(world.projectiles(1).location.y == 50)
-    assert(world.projectiles(1).velocity.x == 15)
+    assert(world.projectiles(1).velocity.x == 200)
     assert(world.projectiles(1).velocity.y == 0)
 
 
@@ -55,13 +55,13 @@ class TestShooting extends FunSuite {
       val projectile1: Projectile = new Projectile(new PhysicsVector(26, 50), new PhysicsVector(15, 0))
       val projectile2: Projectile = new Projectile(new PhysicsVector(54, 50), new PhysicsVector(-15, 0))
 
-      assert(world.projectiles(0).location.x == 26)
+      assert(world.projectiles(0).location.x == 211)
       assert(world.projectiles(0).location.y == 50)
-      assert(world.projectiles(0).velocity.x == 15)
+      assert(world.projectiles(0).velocity.x == 200)
       assert(world.projectiles(0).velocity.y == 0)
-      assert(world.projectiles(1).location.x == 54)
+      assert(world.projectiles(1).location.x == -131)
       assert(world.projectiles(1).location.y == 50)
-      assert(world.projectiles(1).velocity.x == -15)
+      assert(world.projectiles(1).velocity.x == -200)
       assert(world.projectiles(1).velocity.y == 0)
 
 
