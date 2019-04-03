@@ -18,6 +18,7 @@ abstract class PlayerState(player: Player) {
   }
 
   def jumpPress(): Unit = {
+    player.velocity.y = -180
   }
 
   def jumpRelease(): Unit = {
