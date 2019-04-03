@@ -2,6 +2,8 @@ package controller
 
   import javafx.event._
   import main._
+  import view._
+
   import physics._
   import objects._
   import play.api._
@@ -42,5 +44,6 @@ class shoot(player: Player) extends EventHandler[KeyEvent] {
       }
       case _ =>
     }
+    Game1.makebullet
   }
 }
