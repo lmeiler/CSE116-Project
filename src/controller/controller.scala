@@ -42,7 +42,6 @@ class shoot(player: Player) extends EventHandler[KeyEvent] {
     }
 
 
-    Game1.makeBullet
   }
 
 }
