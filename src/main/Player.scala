@@ -9,7 +9,7 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
   var leftPress = false
   var rightPress = false
 
-  val orientation: PhysicsVector = new PhysicsVector(1,0)
+  var orientation: PhysicsVector = new PhysicsVector(1,0)
   var health: Int = 10
   val speed: Int = 300
   val length: Int = 100

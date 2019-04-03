@@ -82,6 +82,7 @@ object Game1 extends JFXApp {
       content = List(rect, obs1, obs2, obs4, obs5, obs6, obs7, obs8, obs9, obs11, obs12, obs13, obs14, obs15, obs17, obs20, obs21, obs22, playerSprite)
       addEventHandler(KeyEvent.KEY_PRESSED, new PressMovement(player))
       addEventHandler(KeyEvent.KEY_RELEASED, new PressMovement(player))
+      addEventHandler(KeyEvent.KEY_PRESSED, new PressMovement(player))
 
     }
     val update: Long => Unit = (time: Long) => {
