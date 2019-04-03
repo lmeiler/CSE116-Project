@@ -1,6 +1,10 @@
 package main
 
+import physics.PhysicsVector
+
 class InAirStatic(player: Player) extends PlayerState(player) {
+
+  player.orientation = new PhysicsVector(1,0)
 
   override def jumpPress(): Unit = {
     player.velocity.y = -180
