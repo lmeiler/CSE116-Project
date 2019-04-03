@@ -18,6 +18,10 @@ class Projectile(location: PhysicsVector, velocity: PhysicsVector)
     */
   }
 
+  override def updateVelocity(world: World, deltaTime: Double): Unit = {
+    
+  }
+
 
   def detectPlayerCollision(location3: PhysicsVector, player: Player): List[Player] = {
     val boundary = player.playerBoundary

@@ -90,7 +90,7 @@ class World(val boundariesSet: List[Boundary]) {
       val newProjectileLocation = projectile.computePotentialLocation(deltaTime)
 
       //      This will give the projectile bullet-drop
-      projectile.updateVelocity(this, deltaTime)
+      // projectile.updateVelocity(this, deltaTime)
 
       val projectileWallCollision = projectile.detectCollision(newProjectileLocation, this.boundariesSet)
       if (projectileWallCollision == true) {
