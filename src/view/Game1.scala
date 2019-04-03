@@ -1,6 +1,6 @@
 package view
 
-import controller.PressMovement
+import controller.{PressMovement, shoot}
 import javafx.scene.input.KeyEvent
 import main.Player
 import physics.{Boundary, PhysicsVector, World}
@@ -31,12 +31,7 @@ object Game1 extends JFXApp {
   val players = game.players
   val six = 6
   val bulletSprite:Shape=bulletBody(game.players.head.location.x,game.players.head.location.y,Color.Black)
-
-  sceneGraphics.children.add(playerSprite)
-
-  def computeDistance(v1: PhysicsVector, v2: PhysicsVector): Double = {
-    Math.sqrt(Math.pow(v1.x - v2.x, 2.0) + Math.pow(v1.y - v2.y, 2.0))
-  }
+  var bulletSprites: mutable.ListBuffer[Shape] = mutable.ListBuffer[Shape]()
 
 
 
@@ -85,12 +80,12 @@ object Game1 extends JFXApp {
       content = List(rect, obs1, obs2, obs4, obs5, obs6, obs7, obs8, obs9, obs11, obs12, obs13, obs14, obs15, obs17, obs20, obs21, obs22, playerSprite)
       addEventHandler(KeyEvent.KEY_PRESSED, new PressMovement(player))
       addEventHandler(KeyEvent.KEY_RELEASED, new PressMovement(player))
-      addEventHandler(KeyEvent.KEY_PRESSED, new PressMovement(player))
+      addEventHandler(KeyEvent.KEY_PRESSED,new shoot(player))
 
-
-      def bulletf(): Unit = {
+      def makebullet(): Unit = {
+        val bulletSprite:Shape=bulletBody(game.players.head.location.x,game.players.head.location.y,Color.Black)
         content = List(bulletSprite)
-        
+        bulletSprites:+=bulletSprite
       }
     }
     val update: Long => Unit = (time: Long) => {
