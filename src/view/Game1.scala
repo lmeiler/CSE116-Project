@@ -24,12 +24,14 @@ object Game1 extends JFXApp {
   var sceneGraphics: Group = new Group {}
   var boundaries: List[Boundary] = List()
   var game = new World(boundaries)
-  var player = new Player(new PhysicsVector(0, 1), new PhysicsVector(1, 1), "abc", game)
+  var player = new Player(new PhysicsVector(200, 100), new PhysicsVector(0, 0), "abc", game)
   val playerSprite: Shape = playerSprite(player.location.x, player.location.y, Color.Blue)
   var playerBuffer: mutable.ListBuffer[Player] = ListBuffer[Player](player)
   game.players += player
   val players = game.players
   val six = 6
+
+  sceneGraphics.children.add(playerSprite)
 
   def computeDistance(v1: PhysicsVector, v2: PhysicsVector): Double = {
     Math.sqrt(Math.pow(v1.x - v2.x, 2.0) + Math.pow(v1.y - v2.y, 2.0))
@@ -85,7 +87,7 @@ object Game1 extends JFXApp {
     val update: Long => Unit = (time: Long) => {
       val dt: Double = (time - lastUpdateTime) / 1000000000.0
       lastUpdateTime = time
-      game.tempUpdate(dt)
+      game.update(dt)
 
       playerSprite.translateX.value = game.players.head.location.x
       playerSprite.translateY.value = game.players.head.location.y

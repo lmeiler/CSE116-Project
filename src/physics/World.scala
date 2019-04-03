@@ -74,7 +74,7 @@ class World(val boundariesSet: List[Boundary]) {
     var playerBoundaries: List[Boundary] = createPlayerBoundaries()
     for (player <- this.players) {
 //      player.update(deltaTime)
-      val newPotentialLocation = player.computePotentialLocation(deltaTime)
+      val newPotentialLocation = new PhysicsVector(player.location.x + player.velocity.x*deltaTime, player.location.y + player.velocity.y*deltaTime)
       var collision = player.detectCollision(newPotentialLocation, this.boundariesSet)
       if (collision == true) {
         player.updateVelocity(this, deltaTime)
@@ -114,7 +114,8 @@ class World(val boundariesSet: List[Boundary]) {
   def tempUpdate(deltaTime: Double): Unit = {
     for (player <- this.players) {
       val newPotentialLocation = player.computePotentialLocation(deltaTime)
-      player.location = newPotentialLocation
+      player.location.x = player.location.x + (player.velocity.x*deltaTime)
+      player.location.y = player.location.y + (player.velocity.y*deltaTime)
     }
   }
 

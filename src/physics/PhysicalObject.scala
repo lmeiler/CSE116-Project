@@ -5,37 +5,15 @@ import java.lang.Math.{max, min}
 abstract class PhysicalObject(var location: PhysicsVector, var velocity: PhysicsVector) {
 
   def computePotentialLocation(deltaTime: Double): PhysicsVector = {
-    var velocityVector: PhysicsVector = this.velocity
-    var locationVector: PhysicsVector = this.location
-    var velocityX: Double = velocityVector.x
-    var velocityY: Double = velocityVector.y
-//    var velocityZ: Double = velocityVector.z
-    var locationX: Double = locationVector.x
-    var locationY: Double = locationVector.y
-//    var locationZ: Double = locationVector.z
-    var xDistanceTraveled: Double = velocityX * deltaTime
-    var yDistanceTraveled: Double = velocityY * deltaTime
-//    var zDistanceTraveled: Double = velocityZ * deltaTime
-    var newXLocation: Double = locationX + xDistanceTraveled
-    var newYLocation: Double = locationY + yDistanceTraveled
-//    var newZLocation: Double = (locationZ + zDistanceTraveled)
-    var newVector: PhysicsVector = new PhysicsVector(newXLocation, newYLocation)
+    val xTraveled = this.location.x + this.velocity.x*deltaTime
+    val yTraveled = this.location.y + this.velocity.y*deltaTime
+    val newVector: PhysicsVector = new PhysicsVector(this.location.x + xTraveled, this.location.y + yTraveled)
     return newVector
   }
 
   def updateVelocity(world: World, deltaTime: Double): Unit = {
-    var objectVelocity: PhysicsVector = this.velocity
-    var objectYVelocity: Double = objectVelocity.y
-    var gravity: Double = world.gravity
-    var deltaVelocity: Double = gravity*deltaTime
-    var finalVelocity: Double = (objectYVelocity - deltaVelocity)
-    //    var halfATSquared: Double = (1/2)*(gravity)*(deltaTime)*(deltaTime)
-    var vNotT: Double = objectYVelocity*deltaTime
-    //    var newZ: Double = vNotT - halfATSquared
-    var newY: Double = this.location.y + vNotT
-    var newVelocity: PhysicsVector = new PhysicsVector(this.velocity.x, finalVelocity)
-    var newNonYVelocity: PhysicsVector = new PhysicsVector(this.velocity.x, 0.0)
-    this.velocity = newVelocity
+    val newVelocity: PhysicsVector = new PhysicsVector(this.velocity.x, this.velocity.y - world.gravity*deltaTime)
+    this.velocity.y = newVelocity.y
   }
 
   def detectCollision(location3: PhysicsVector, boundaries: List[Boundary]): Boolean = {
