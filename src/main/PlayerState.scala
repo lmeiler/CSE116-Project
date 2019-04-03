@@ -20,6 +20,10 @@ abstract class PlayerState(player: Player) {
   def jumpPress(): Unit = {
   }
 
+  def jumpRelease(): Unit = {
+    player.velocity.y = 0
+  }
+
   def leftRelease(): Unit = {
     player.stop()
     if (player.velocity.y == 0) {

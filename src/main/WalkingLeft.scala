@@ -11,6 +11,6 @@ class WalkingLeft(player: Player) extends PlayerState(player) {
   }
 
   override def jumpPress(): Unit = {
-    player.velocity.y = -500
+    player.velocity.y = -180
   }
 }

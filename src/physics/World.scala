@@ -8,12 +8,12 @@ import physics._
 
 import scala.collection.mutable.ListBuffer
 
-class World(val boundariesSet: List[Boundary]) {
+class World(var boundariesSet: List[Boundary]) {
 
   //  var players: mutable.MutableList[Player] = mutable.MutableList()
 
   var projectiles: mutable.Buffer[Projectile] = mutable.Buffer.empty
-  val gravity: Double = -9.8
+  val gravity: Double = -240
   //  val boundariesSet: List[Boundary] = List.empty
   var lastUpdateTime: Double = System.nanoTime()
   var players: mutable.ListBuffer[Player] = mutable.ListBuffer[Player]()
@@ -78,6 +78,7 @@ class World(val boundariesSet: List[Boundary]) {
       var collision = player.detectCollision(newPotentialLocation, this.boundariesSet)
       if (collision == true) {
         player.updateVelocity(this, deltaTime)
+//        player.velocity.y -= this.gravity*deltaTime
         player.location = newPotentialLocation
         player.bottom = new PhysicsVector(player.location.x, player.location.y)
         player.top = new PhysicsVector(player.location.x, player.location.y + 100)

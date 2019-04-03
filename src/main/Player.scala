@@ -35,6 +35,10 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
     this.state.jumpPress()
   }
 
+//  def jumpReleased(): Unit = {
+//    this.state.jumpRelease()
+//  }
+
   def leftRelease(): Unit = {
     this.leftPress = false
     this.state.leftRelease()

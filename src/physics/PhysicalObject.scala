@@ -2,6 +2,8 @@ package physics
 
 import java.lang.Math.{max, min}
 
+import com.sun.org.glassfish.external.statistics.BoundaryStatistic
+
 abstract class PhysicalObject(var location: PhysicsVector, var velocity: PhysicsVector) {
 
   def computePotentialLocation(deltaTime: Double): PhysicsVector = {
@@ -17,6 +19,7 @@ abstract class PhysicalObject(var location: PhysicsVector, var velocity: Physics
   }
 
   def detectCollision(location3: PhysicsVector, boundaries: List[Boundary]): Boolean = {
+    var boolean: Boolean = true
     for (boundary <- boundaries) {
       var boundEnd1: PhysicsVector = boundary.end1
       var boundEnd2: PhysicsVector = boundary.end2
@@ -28,23 +31,63 @@ abstract class PhysicalObject(var location: PhysicsVector, var velocity: Physics
       var objy: Double = this.location.y
       var locx: Double = location3.x
       var locy: Double = location3.y
-      var objectSlope: Double = (locy - objy) / (locx - objx)
-      var boundSlope: Double = (boundEnd2Y - boundEnd1Y) / (boundEnd2X - boundEnd1X)
-      var objYInt: Double = (objy - (objectSlope) * objx)
-      var boundYInt: Double = (boundEnd1Y - (boundSlope) * boundEnd1X)
-      var xIntercept: Double = (boundYInt - objYInt) / (objectSlope - boundSlope)
+      var objectSlope: Double = (locy - objy)/(locx - objx)
+      var boundSlope: Double = (boundEnd2Y - boundEnd1Y)/(boundEnd2X - boundEnd1X)
+      var objYInt: Double = (objy - (objectSlope)*objx)
+      var boundYInt: Double = (boundEnd1Y - (boundSlope)*boundEnd1X)
+      var xIntercept: Double = (boundYInt - objYInt)/(objectSlope - boundSlope)
       var minX1: Double = min(objx, locx)
       var minX2: Double = min(boundEnd1X, boundEnd2X)
       var maxX1: Double = max(objx, locx)
       var maxX2: Double = max(boundEnd1X, boundEnd2X)
       if (minX1 <= xIntercept && xIntercept <= maxX1) {
         if (minX2 <= xIntercept && xIntercept <= maxX2) {
-          return false
+          boolean = false
+        }
+        else {
         }
       }
+      else {
+      }
     }
-    return true
+    boolean
   }
+//    for (boundary <- boundaries) {
+//      var boundEnd1: PhysicsVector = boundary.end1
+//      var boundEnd2: PhysicsVector = boundary.end2
+//      var boundEnd1X: Double = boundEnd1.x
+//      var boundEnd1Y: Double = boundEnd1.y
+//      var boundEnd2X: Double = boundEnd2.x
+//      var boundEnd2Y: Double = boundEnd2.y
+//      var objx: Double = this.location.x
+//      var objy: Double = this.location.y
+//      var locx: Double = location3.x
+//      var locy: Double = location3.y
+//      var objectSlope: Double = (locy - objy) / (locx - objx)
+//      var boundSlope: Double = (boundEnd2Y - boundEnd1Y) / (boundEnd2X - boundEnd1X)
+//      var objYInt: Double = (objy - (objectSlope) * objx)
+//      var boundYInt: Double = (boundEnd1Y - (boundSlope) * boundEnd1X)
+//      var xIntercept: Double = (boundYInt - objYInt) / (objectSlope - boundSlope)
+//      var minX1: Double = min(objx, locx)
+//      var minX2: Double = min(boundEnd1X, boundEnd2X)
+//      var maxX1: Double = max(objx, locx)
+//      var maxX2: Double = max(boundEnd1X, boundEnd2X)
+//      if (minX1 <= xIntercept && xIntercept <= maxX1) {
+//        if (minX2 <= xIntercept && xIntercept <= maxX2) {
+//          return false
+//        }
+//      }
+//    }
+//    return true
+//  }
+
+//  def detectHorizontalCollision(location1: PhysicsVector, boundaries: List[Boundary]): Boolean = {
+//    for (boundary <- boundaries) {
+//      val objectSlope = (location1.y - this.location.y)/(location1.x - this.location.x)
+//      val boundSlope = (boundary.end2.y - boundary.end1.y)/(boundary.end2.x - boundary.end1.x)
+//
+//    }
+//  }
 
     //        }
 //
