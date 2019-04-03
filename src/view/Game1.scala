@@ -30,7 +30,7 @@ object Game1 extends JFXApp {
   game.players += player
   val players = game.players
   val six = 6
-  val bulletBody:Shape=bulletBody(game.players.head.location.x,game.players.head.location.y,Color.Black)
+  val bulletSprite:Shape=bulletBody(game.players.head.location.x,game.players.head.location.y,Color.Black)
 
   sceneGraphics.children.add(playerSprite)
 
@@ -86,6 +86,11 @@ object Game1 extends JFXApp {
       addEventHandler(KeyEvent.KEY_PRESSED, new PressMovement(player))
       addEventHandler(KeyEvent.KEY_RELEASED, new PressMovement(player))
 
+
+      def bulletf(): Unit = {
+        content = List(bulletSprite)
+        
+      }
     }
     val update: Long => Unit = (time: Long) => {
       val dt: Double = (time - lastUpdateTime) / 1000000000.0
@@ -94,10 +99,13 @@ object Game1 extends JFXApp {
 
       playerSprite.translateX.value = game.players.head.location.x
       playerSprite.translateY.value = game.players.head.location.y
+      bulletSprite.translateX.value = game.projectiles.head.location.x
+      bulletSprite.translateY.value = game.projectiles.head.location.y
 //      playerSprite.translateY.value = 10
 //      playerSprite.translateX.value = 10
 
     }
+
     AnimationTimer(update).start()
 
   }
