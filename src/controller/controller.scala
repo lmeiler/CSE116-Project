@@ -24,7 +24,7 @@ class PressMovement(player: Player) extends EventHandler[KeyEvent] {
         case "A" => player.leftPressed()
         case "W" => player.jump()
         case "D" => player.rightPressed()
-        case "V" => player.shoot()
+//        case "V" => player.shoot()
         case _ =>
       }
       case _ =>
@@ -34,7 +34,13 @@ class PressMovement(player: Player) extends EventHandler[KeyEvent] {
 }
 class shoot(player: Player) extends EventHandler[KeyEvent] {
   override def handle(event: KeyEvent): Unit = {
-    player.shoot()
+    event.getEventType.getName match {
+      case "KEY_PRESSED" => keyCode.getName match {
+        case "V" => player.shoot()
+        case _ =>
+      }
+      case _ =>
+
   }
 
 }

@@ -88,27 +88,30 @@ class World(var boundariesSet: List[Boundary]) {
       }
     }
     for (projectile <- this.projectiles) {
-      val newProjectileLocation = projectile.computePotentialLocation(deltaTime)
-
-      //      This will give the projectile bullet-drop
-      // projectile.updateVelocity(this, deltaTime)
-
-      val projectileWallCollision = projectile.detectCollision(newProjectileLocation, this.boundariesSet)
-      if (projectileWallCollision == true) {
-        projectile.location = newProjectileLocation
-      }
-      if (projectileWallCollision == false) {
-        //        var projectileBuffer = this.projectiles.toBuffer
-        this.projectiles - projectile
-        //        this.projectiles = projectileBuffer.toList
-      }
-      for (player <- this.players) {
-        val projectilePlayerCollision = projectile.detectPlayerCollision(newProjectileLocation, player)
-        if (!projectilePlayerCollision.isEmpty) {
-          projectilePlayerCollision.head.health - 2
-        }
-      }
+      val newPotentialLocation = new PhysicsVector(projectile.location.x + projectile.velocity.x*deltaTime, projectile.location.y)
+      projectile.location = newPotentialLocation
     }
+//      val newProjectileLocation = projectile.computePotentialLocation(deltaTime)
+//
+//      //      This will give the projectile bullet-drop
+//      // projectile.updateVelocity(this, deltaTime)
+//
+//      val projectileWallCollision = projectile.detectCollision(newProjectileLocation, this.boundariesSet)
+//      if (projectileWallCollision == true) {
+//        projectile.location = newProjectileLocation
+//      }
+//      if (projectileWallCollision == false) {
+//        //        var projectileBuffer = this.projectiles.toBuffer
+//        this.projectiles - projectile
+//        //        this.projectiles = projectileBuffer.toList
+//      }
+//      for (player <- this.players) {
+//        val projectilePlayerCollision = projectile.detectPlayerCollision(newProjectileLocation, player)
+//        if (!projectilePlayerCollision.isEmpty) {
+//          projectilePlayerCollision.head.health - 2
+//        }
+//      }
+//    }
     eliminatePlayers()
   }
 
