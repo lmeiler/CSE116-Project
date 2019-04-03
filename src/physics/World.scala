@@ -25,7 +25,7 @@ class World(val boundariesSet: List[Boundary]) {
     var index: Int = 0
     //    var buffer: mutable.Buffer[Player] = mutable.Buffer()
     for (player <- this.players) {
-      if (player.health != 0) {
+      if (player.health == 0) {
         //        buffer.remove(index)
         this.players -= player
       }
