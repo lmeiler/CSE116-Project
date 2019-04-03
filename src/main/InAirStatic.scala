@@ -3,6 +3,7 @@ package main
 class InAirStatic(player: Player) extends PlayerState(player) {
 
   override def jumpPress(): Unit = {
+    player.velocity.y = -180
   }
 
   override def leftPress(): Unit = {

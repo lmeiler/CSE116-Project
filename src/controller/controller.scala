@@ -16,7 +16,7 @@ class PressMovement(player: Player) extends EventHandler[KeyEvent] {
     event.getEventType.getName match {
       case "KEY_RELEASED" => keyCode.getName match {
           case "A" => player.leftRelease()
-//          case "W" => player.jump()
+//          case "W" => player.jumpReleased()
           case "D" => player.rightRelease()
           case _ =>
       }
@@ -24,6 +24,7 @@ class PressMovement(player: Player) extends EventHandler[KeyEvent] {
         case "A" => player.leftPressed()
         case "W" => player.jump()
         case "D" => player.rightPressed()
+        case "V" => player.shoot()
         case _ =>
       }
       case _ =>

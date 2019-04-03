@@ -11,7 +11,7 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
 
   val orientation: PhysicsVector = new PhysicsVector(1,0)
   var health: Int = 10
-  val speed: Int = 5
+  val speed: Int = 300
   val length: Int = 100
   val width: Int = 10
 
@@ -22,7 +22,7 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
 
   // THESE ARE THE API METHODS
   def leftPressed(): Unit = {
-    leftPress = true
+    leftPress =  true
     this.state.leftPress()
   }
 
@@ -34,6 +34,10 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
   def jump(): Unit = {
     this.state.jumpPress()
   }
+
+//  def jumpReleased(): Unit = {
+//    this.state.jumpRelease()
+//  }
 
   def leftRelease(): Unit = {
     this.leftPress = false
@@ -72,8 +76,9 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
   }
 
   def createProjectile(): Unit = {
-    val projectileLocation: PhysicsVector = new PhysicsVector(this.location.x + 1, this.location.y)
-    val projectileSpeed: PhysicsVector = new PhysicsVector(15, 0)
+    this.get_orientation()
+    val projectileLocation: PhysicsVector = new PhysicsVector((this.location.x + (1 *this.orientation.x)) , this.location.y + 50)
+    val projectileSpeed: PhysicsVector = new PhysicsVector(15 * this.orientation.x, 0)
     val projectile: Projectile = new Projectile(projectileLocation, projectileSpeed)
     this.world.projectiles += projectile
   }
@@ -84,24 +89,9 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
   }
 
   override def computePotentialLocation(deltaTime: Double): PhysicsVector = {
-    var velocityVector: PhysicsVector = this.velocity
-    var locationVector: PhysicsVector = this.location
-    var velocityX: Double = velocityVector.x
-    var velocityY: Double = velocityVector.y
-    var locationX: Double = locationVector.x
-    var locationY: Double = locationVector.y
-    var xDistanceTraveled: Double = velocityX * deltaTime
-    var yDistanceTraveled: Double = velocityY * deltaTime
-    var newXLocation: Double = locationX + xDistanceTraveled
-    var newYLocation: Double = locationY + yDistanceTraveled
-    if (newYLocation <= 0) {
-      var groundVector: PhysicsVector = new PhysicsVector(newXLocation, 0.0)
-      return groundVector
-    }
-    else {
-      var newVector: PhysicsVector = new PhysicsVector(newXLocation, newYLocation)
-      return newVector
-    }
+    val xDistanceTraveled = this.velocity.x*deltaTime
+    val yDistanceTraveled = this.velocity.y*deltaTime
+    new PhysicsVector(this.location.x + xDistanceTraveled, this.location.y + yDistanceTraveled)
   }
 
 //  def takeDamage(projectile: Projectile): Unit = {

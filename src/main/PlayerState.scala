@@ -18,6 +18,11 @@ abstract class PlayerState(player: Player) {
   }
 
   def jumpPress(): Unit = {
+    player.velocity.y = -180
+  }
+
+  def jumpRelease(): Unit = {
+    player.velocity.y = 0
   }
 
   def leftRelease(): Unit = {
@@ -32,7 +37,12 @@ abstract class PlayerState(player: Player) {
 
   def rightRelease(): Unit = {
     player.stop()
-    player.state = new Base(player)
+    if (player.velocity.y == 0) {
+      player.state = new Base(player)
+    }
+    else {
+      player.state = new InAirStatic(player)
+    }
   }
 
   def shoot(): Unit = {
