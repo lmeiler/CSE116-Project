@@ -22,7 +22,7 @@ object Game1 extends JFXApp {
   val windowWidth: Double = 30 * scale_f
   val windowHeight: Double = 30 * scale_f
   var sceneGraphics: Group = new Group {}
-  var boundaries: List[Boundary] = List(new Boundary(new PhysicsVector(0,2000), new PhysicsVector(2000,2000)))
+  var boundaries: List[Boundary] = List(new Boundary(new PhysicsVector(0, 800), new PhysicsVector(1000, 800)))
   var game = new World(boundaries)
   var player = new Player(new PhysicsVector(200, 100), new PhysicsVector(0, 0), "abc", game)
   val playerSprite: Shape = playerSprite(player.location.x, player.location.y, Color.Blue)
