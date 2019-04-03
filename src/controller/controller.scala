@@ -43,7 +43,9 @@ class shoot(player: Player) extends EventHandler[KeyEvent] {
         case _ =>
       }
       case _ =>
+
     }
     Game1.makebullet
   }
+
 }

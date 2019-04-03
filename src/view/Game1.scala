@@ -30,7 +30,7 @@ object Game1 extends JFXApp {
   game.players += player
   val players = game.players
   val six = 6
-  val bulletSprite:Shape=bulletBody(game.players.head.location.x,game.players.head.location.y,Color.Black)
+  val bulletSprite: Shape = bulletBody(game.players.head.location.x,game.players.head.location.y,Color.Black)
 
   sceneGraphics.children.add(playerSprite)
 
@@ -100,8 +100,15 @@ object Game1 extends JFXApp {
 
       playerSprite.translateX.value = game.players.head.location.x
       playerSprite.translateY.value = game.players.head.location.y
-      bulletSprite.translateX.value = game.projectiles.head.location.x
-      bulletSprite.translateY.value = game.projectiles.head.location.y
+
+      if (game.projectiles.isEmpty) {
+
+      }
+      else {
+        bulletSprite.translateX.value = game.projectiles.head.location.x
+        bulletSprite.translateY.value = game.projectiles.head.location.y
+      }
+
 //      playerSprite.translateY.value = 10
 //      playerSprite.translateX.value = 10
 
