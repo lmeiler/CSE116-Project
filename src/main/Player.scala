@@ -11,7 +11,7 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
 
   val orientation: PhysicsVector = new PhysicsVector(1,0)
   var health: Int = 10
-  val speed: Int = 5
+  val speed: Int = 500
   val length: Int = 100
   val width: Int = 10
 
@@ -84,18 +84,9 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
   }
 
   override def computePotentialLocation(deltaTime: Double): PhysicsVector = {
-    var velocityVector: PhysicsVector = this.velocity
-    var locationVector: PhysicsVector = this.location
-    var velocityX: Double = velocityVector.x
-    var velocityY: Double = velocityVector.y
-    var locationX: Double = locationVector.x
-    var locationY: Double = locationVector.y
-    var xDistanceTraveled: Double = velocityX * deltaTime
-    var yDistanceTraveled: Double = velocityY * deltaTime
-    var newXLocation: Double = locationX + xDistanceTraveled
-    var newYLocation: Double = locationY + yDistanceTraveled
-    var newVector: PhysicsVector = new PhysicsVector(newXLocation, newYLocation)
-    return newVector
+    val xDistanceTraveled = this.velocity.x*deltaTime
+    val yDistanceTraveled = this.velocity.y*deltaTime
+    new PhysicsVector(this.location.x + xDistanceTraveled, this.location.y + yDistanceTraveled)
   }
 
 //  def takeDamage(projectile: Projectile): Unit = {

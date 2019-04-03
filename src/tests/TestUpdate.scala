@@ -21,13 +21,13 @@ class TestUpdate extends FunSuite {
     player1.rightPressed()
     player2.leftPressed()
 
-    world.update(1.0)
+    world.update(.45)
 
 
-    val player1_newLocation: PhysicsVector = new PhysicsVector(15, 0)
-    val player2_newLocation: PhysicsVector = new PhysicsVector(65, 0)
-    val player1_velocity: PhysicsVector = new PhysicsVector(5, 0)
-    val player2_velocity: PhysicsVector = new PhysicsVector(-5, 0)
+    val player1_newLocation: PhysicsVector = new PhysicsVector(235, 0)
+    val player2_newLocation: PhysicsVector = new PhysicsVector(-155, 0)
+    val player1_velocity: PhysicsVector = new PhysicsVector(500, 0)
+    val player2_velocity: PhysicsVector = new PhysicsVector(-500, 0)
     assert(player1.velocity.x == player1_velocity.x)
     assert(player2.velocity.x == player2_velocity.x)
     assert(player1.location.x == player1_newLocation.x)

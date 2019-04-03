@@ -24,6 +24,7 @@ class PressMovement(player: Player) extends EventHandler[KeyEvent] {
         case "A" => player.leftPressed()
         case "W" => player.jump()
         case "D" => player.rightPressed()
+        case "V" => player.shoot()
         case _ =>
       }
       case _ =>

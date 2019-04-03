@@ -13,7 +13,7 @@ class World(val boundariesSet: List[Boundary]) {
   //  var players: mutable.MutableList[Player] = mutable.MutableList()
 
   var projectiles: mutable.Buffer[Projectile] = mutable.Buffer.empty
-  val gravity: Double = 9.8
+  val gravity: Double = -9.8
   //  val boundariesSet: List[Boundary] = List.empty
   var lastUpdateTime: Double = System.nanoTime()
   var players: mutable.ListBuffer[Player] = mutable.ListBuffer[Player]()
@@ -73,7 +73,7 @@ class World(val boundariesSet: List[Boundary]) {
   def update(deltaTime: Double): Unit = {
     var playerBoundaries: List[Boundary] = createPlayerBoundaries()
     for (player <- this.players) {
-      player.update(deltaTime)
+//      player.update(deltaTime)
       val newPotentialLocation = player.computePotentialLocation(deltaTime)
       var collision = player.detectCollision(newPotentialLocation, this.boundariesSet)
       if (collision == true) {
@@ -111,6 +111,13 @@ class World(val boundariesSet: List[Boundary]) {
     eliminatePlayers()
   }
 
+  def tempUpdate(deltaTime: Double): Unit = {
+    for (player <- this.players) {
+      val newPotentialLocation = player.computePotentialLocation(deltaTime)
+      player.location = newPotentialLocation
+    }
+  }
+
   //This is a WIP for now, ignore if necessary
 
   def singlePlayerUpdate(deltaTime: Double): Unit = {
@@ -130,7 +137,7 @@ class World(val boundariesSet: List[Boundary]) {
     for (projectile <- this.projectiles) {
       val newProjectileLocation = projectile.computePotentialLocation(deltaTime)
       //      This will give the projectile bullet-drop
-      projectile.updateVelocity(this, deltaTime)
+//      projectile.updateVelocity(this, deltaTime)
 
       val projectileWallCollision = projectile.detectCollision(newProjectileLocation, this.boundariesSet)
       if (projectileWallCollision == true) {

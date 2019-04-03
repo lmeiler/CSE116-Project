@@ -79,12 +79,13 @@ object Game1 extends JFXApp {
       rect.fill = Color.Green
       content = List(rect, obs1, obs2, obs4, obs5, obs6, obs7, obs8, obs9, obs11, obs12, obs13, obs14, obs15, obs17, obs20, obs21, obs22, playerSprite)
       addEventHandler(KeyEvent.KEY_PRESSED, new PressMovement(player))
+      addEventHandler(KeyEvent.KEY_RELEASED, new PressMovement(player))
 
     }
     val update: Long => Unit = (time: Long) => {
       val dt: Double = (time - lastUpdateTime) / 1000000000.0
       lastUpdateTime = time
-      game.update(dt)
+      game.tempUpdate(dt)
 
       playerSprite.translateX.value = game.players.head.location.x
       playerSprite.translateY.value = game.players.head.location.y
