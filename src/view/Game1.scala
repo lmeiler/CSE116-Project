@@ -9,7 +9,7 @@ import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.canvas.Canvas
 import scalafx.scene.paint.Color
-import scalafx.scene.shape.{Rectangle, Shape}
+import scalafx.scene.shape.{Circle, Rectangle, Shape}
 import scalafx.scene.{Group, Scene}
 
 import scala.collection.mutable
@@ -25,11 +25,12 @@ object Game1 extends JFXApp {
   var boundaries: List[Boundary] = List(new Boundary(new PhysicsVector(0,2000), new PhysicsVector(2000,2000)))
   var game = new World(boundaries)
   var player = new Player(new PhysicsVector(200, 100), new PhysicsVector(0, 0), "abc", game)
-  val playerSprite: Shape = playerSprite(player.location.x, player.location.y, Color.Blue)
+  val playerSprite: Shape = playerBody(player.location.x, player.location.y, Color.Blue)
   var playerBuffer: mutable.ListBuffer[Player] = ListBuffer[Player](player)
   game.players += player
   val players = game.players
   val six = 6
+  val bulletBody:Shape=bulletBody(game.players.head.location.x,game.players.head.location.y,Color.Black)
 
   sceneGraphics.children.add(playerSprite)
 
@@ -37,21 +38,23 @@ object Game1 extends JFXApp {
     Math.sqrt(Math.pow(v1.x - v2.x, 2.0) + Math.pow(v1.y - v2.y, 2.0))
   }
 
-  def convertX(gameX: Double, width: Double): Double = {
-    gameX* scale_f
-  }
 
-  def convertY(gameY: Double, height: Double): Double = {
-    gameY  * scale_f
-  }
 
-  def playerSprite(xLocation: Double, yLocation: Double, color: Color): Shape = {
+  def playerBody(xLocation: Double, yLocation: Double, color: Color): Shape = {
     new Rectangle {
       width = 3 * scale_f
       height = 5 * scale_f
-      translateX = convertX(xLocation,10)
-      translateY = convertY(yLocation,0)
+      translateX = xLocation
+      translateY = yLocation
       fill = color
+    }
+  }
+  def bulletBody(xLocation: Double, yLocation: Double, color: Color): Shape = {
+    new Circle {
+      centerX = xLocation
+      centerY = yLocation
+      radius = 10.0
+      fill = Color.Green
     }
   }
 
@@ -77,7 +80,7 @@ object Game1 extends JFXApp {
       var obs20 = Rectangle(50, 500, 270, 10)
       var obs21 = Rectangle(545, 50, 270, 10)
       var obs22 = Rectangle(1050, 380, 270, 10)
-      obs1.fill = Color.Red
+
       rect.fill = Color.Green
       content = List(rect, obs1, obs2, obs4, obs5, obs6, obs7, obs8, obs9, obs11, obs12, obs13, obs14, obs15, obs17, obs20, obs21, obs22, playerSprite)
       addEventHandler(KeyEvent.KEY_PRESSED, new PressMovement(player))
