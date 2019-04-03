@@ -78,7 +78,7 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
   def createProjectile(): Unit = {
     this.get_orientation()
     val projectileLocation: PhysicsVector = new PhysicsVector((this.location.x + (1 *this.orientation.x)) , this.location.y + 50)
-    val projectileSpeed: PhysicsVector = new PhysicsVector(15 * this.orientation.x, 0)
+    val projectileSpeed: PhysicsVector = new PhysicsVector(200 * this.orientation.x, 0)
     val projectile: Projectile = new Projectile(projectileLocation, projectileSpeed)
     this.world.projectiles += projectile
   }

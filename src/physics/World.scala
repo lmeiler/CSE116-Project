@@ -73,12 +73,12 @@ class World(var boundariesSet: List[Boundary]) {
   def update(deltaTime: Double): Unit = {
     var playerBoundaries: List[Boundary] = createPlayerBoundaries()
     for (player <- this.players) {
-//      player.update(deltaTime)
-      val newPotentialLocation = new PhysicsVector(player.location.x + player.velocity.x*deltaTime, player.location.y + player.velocity.y*deltaTime)
+      //      player.update(deltaTime)
+      val newPotentialLocation = new PhysicsVector(player.location.x + player.velocity.x * deltaTime, player.location.y + player.velocity.y * deltaTime)
       var collision = player.detectCollision(newPotentialLocation, this.boundariesSet)
       if (collision == true) {
         player.updateVelocity(this, deltaTime)
-//        player.velocity.y -= this.gravity*deltaTime
+        //        player.velocity.y -= this.gravity*deltaTime
         player.location = newPotentialLocation
         player.bottom = new PhysicsVector(player.location.x, player.location.y)
         player.top = new PhysicsVector(player.location.x, player.location.y + 100)
@@ -88,13 +88,62 @@ class World(var boundariesSet: List[Boundary]) {
       }
     }
     for (projectile <- this.projectiles) {
-      val newPotentialLocation = new PhysicsVector(projectile.location.x + projectile.velocity.x*deltaTime, projectile.location.y)
+      val newPotentialLocation = new PhysicsVector(projectile.location.x + projectile.velocity.x * deltaTime, projectile.location.y)
       projectile.location = newPotentialLocation
     }
+    //      val newProjectileLocation = projectile.computePotentialLocation(deltaTime)
+    //
+    //      //      This will give the projectile bullet-drop
+    //      // projectile.updateVelocity(this, deltaTime)
+    //
+    //      val projectileWallCollision = projectile.detectCollision(newProjectileLocation, this.boundariesSet)
+    //      if (projectileWallCollision == true) {
+    //        projectile.location = newProjectileLocation
+    //      }
+    //      if (projectileWallCollision == false) {
+    //        //        var projectileBuffer = this.projectiles.toBuffer
+    //        this.projectiles - projectile
+    //        //        this.projectiles = projectileBuffer.toList
+    //      }
+    //      for (player <- this.players) {
+    //        val projectilePlayerCollision = projectile.detectPlayerCollision(newProjectileLocation, player)
+    //        if (!projectilePlayerCollision.isEmpty) {
+    //          projectilePlayerCollision.head.health - 2
+    //        }
+    //      }
+    //    }
+    eliminatePlayers()
+  }
+}
+
+//  def tempUpdate(deltaTime: Double): Unit = {
+//    for (player <- this.players) {
+//      val newPotentialLocation = player.computePotentialLocation(deltaTime)
+//      player.location.x = player.location.x + (player.velocity.x*deltaTime)
+//      player.location.y = player.location.y + (player.velocity.y*deltaTime)
+//    }
+//  }
+
+  //This is a WIP for now, ignore if necessary
+
+//  def singlePlayerUpdate(deltaTime: Double): Unit = {
+//    var playerBoundaries: List[Boundary] = createPlayerBoundaries()
+//    player.update(deltaTime)
+//    val newPotentialLocation = player.computePotentialLocation(deltaTime)
+//    var collision = player.detectCollision(newPotentialLocation, this.boundariesSet)
+//    if (collision == true) {
+//      player.updateVelocity(this, deltaTime)
+//      player.location = newPotentialLocation
+//      player.bottom = new PhysicsVector(player.location.x, player.location.y)
+//      player.top = new PhysicsVector(player.location.x, player.location.y + 100)
+//    }
+//    else {
+//      player.velocity.y = 0
+//    }
+//    for (projectile <- this.projectiles) {
 //      val newProjectileLocation = projectile.computePotentialLocation(deltaTime)
-//
 //      //      This will give the projectile bullet-drop
-//      // projectile.updateVelocity(this, deltaTime)
+////      projectile.updateVelocity(this, deltaTime)
 //
 //      val projectileWallCollision = projectile.detectCollision(newProjectileLocation, this.boundariesSet)
 //      if (projectileWallCollision == true) {
@@ -105,60 +154,12 @@ class World(var boundariesSet: List[Boundary]) {
 //        this.projectiles - projectile
 //        //        this.projectiles = projectileBuffer.toList
 //      }
-//      for (player <- this.players) {
-//        val projectilePlayerCollision = projectile.detectPlayerCollision(newProjectileLocation, player)
-//        if (!projectilePlayerCollision.isEmpty) {
-//          projectilePlayerCollision.head.health - 2
-//        }
+//
+//      val projectilePlayerCollision = projectile.detectPlayerCollision(newProjectileLocation, player)
+//      if (!projectilePlayerCollision.isEmpty) {
+//        projectilePlayerCollision.head.health - 2
 //      }
 //    }
-    eliminatePlayers()
-  }
-
-  def tempUpdate(deltaTime: Double): Unit = {
-    for (player <- this.players) {
-      val newPotentialLocation = player.computePotentialLocation(deltaTime)
-      player.location.x = player.location.x + (player.velocity.x*deltaTime)
-      player.location.y = player.location.y + (player.velocity.y*deltaTime)
-    }
-  }
-
-  //This is a WIP for now, ignore if necessary
-
-  def singlePlayerUpdate(deltaTime: Double): Unit = {
-    var playerBoundaries: List[Boundary] = createPlayerBoundaries()
-    player.update(deltaTime)
-    val newPotentialLocation = player.computePotentialLocation(deltaTime)
-    var collision = player.detectCollision(newPotentialLocation, this.boundariesSet)
-    if (collision == true) {
-      player.updateVelocity(this, deltaTime)
-      player.location = newPotentialLocation
-      player.bottom = new PhysicsVector(player.location.x, player.location.y)
-      player.top = new PhysicsVector(player.location.x, player.location.y + 100)
-    }
-    else {
-      player.velocity.y = 0
-    }
-    for (projectile <- this.projectiles) {
-      val newProjectileLocation = projectile.computePotentialLocation(deltaTime)
-      //      This will give the projectile bullet-drop
-//      projectile.updateVelocity(this, deltaTime)
-
-      val projectileWallCollision = projectile.detectCollision(newProjectileLocation, this.boundariesSet)
-      if (projectileWallCollision == true) {
-        projectile.location = newProjectileLocation
-      }
-      if (projectileWallCollision == false) {
-        //        var projectileBuffer = this.projectiles.toBuffer
-        this.projectiles - projectile
-        //        this.projectiles = projectileBuffer.toList
-      }
-
-      val projectilePlayerCollision = projectile.detectPlayerCollision(newProjectileLocation, player)
-      if (!projectilePlayerCollision.isEmpty) {
-        projectilePlayerCollision.head.health - 2
-      }
-    }
-  }
-  eliminatePlayers()
-}
+//  }
+//  eliminatePlayers()
+//}
