@@ -2,6 +2,8 @@ package controller
 
   import javafx.event._
   import main._
+  import view._
+
   import physics._
   import objects._
   import play.api._
@@ -34,6 +36,7 @@ class PressMovement(player: Player) extends EventHandler[KeyEvent] {
 }
 class shoot(player: Player) extends EventHandler[KeyEvent] {
   override def handle(event: KeyEvent): Unit = {
+    val keyCode = event.getCode
     event.getEventType.getName match {
       case "KEY_PRESSED" => keyCode.getName match {
         case "V" => player.shoot()
@@ -41,6 +44,8 @@ class shoot(player: Player) extends EventHandler[KeyEvent] {
       }
       case _ =>
 
+    }
+    Game1.makebullet
   }
 
 }
