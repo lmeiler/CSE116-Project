@@ -37,7 +37,9 @@ class PressMovement(player: Player) extends EventHandler[KeyEvent] {
 class shoot(player: Player) extends EventHandler[KeyEvent] {
   override def handle(event: KeyEvent): Unit = {
     val keyCode = event.getCode
-    if (event.getEventType.getName == "KEY_PRESSED" && keyCode.getName) {}
+    if (event.getEventType.getName == "KEY_PRESSED" && keyCode.getName=="V") {
+      player.shoot()
+    }
 
 
     Game1.makeBullet
