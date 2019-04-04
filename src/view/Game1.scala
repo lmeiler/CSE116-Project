@@ -112,9 +112,9 @@ object Game1 extends JFXApp {
     }
     val update: Long => Unit = (time: Long) => {
 
-      val deltatime: Double = (time - lastUpdateTime) / 1000000000.0
+      val deltaTime: Double = (time - lastUpdateTime) / 1000000000.0
       lastUpdateTime = time
-      game.update(deltatime)
+      game.update(deltaTime)
 
       playerS.translateX.value = game.players.head.location.x
       playerS.translateY.value = game.players.head.location.y
@@ -134,15 +134,14 @@ object Game1 extends JFXApp {
             i.translateY.value = 8
             index += 1
           }
+          else {
+            i.translateX.value+=8
+            i.translateY.value=8
+            index += 1
+          }
         }
       }
     }
     AnimationTimer(update).start()
   }
-
-
-
-
 }
-
-
