@@ -19,7 +19,7 @@ object Game1 extends JFXApp {
   var lastUpdateTime: Long = System.nanoTime()
 
   var sceneGraphics: Group = new Group {}
-  var boundaries: List[Boundary] = List(new Boundary(new PhysicsVector(0, 2000), new PhysicsVector(2000, 2000)))
+  var boundaries: List[Boundary] = List(new Boundary(new PhysicsVector(5, 590), new PhysicsVector(2005, 590)))
   var game = new World(boundaries)
   var player = new Player(new PhysicsVector(200, 100), new PhysicsVector(0, 0), "abc", game)
   val playerS: Shape = playerBody(player.location.x, player.location.y, Color.Blue)
@@ -27,6 +27,10 @@ object Game1 extends JFXApp {
   game.players += player
   val players = game.players
   var listbullet:List[Shape]=List()
+  var listBulletDirection: List[PhysicsVector] = List()
+
+  val left: PhysicsVector = new PhysicsVector(-1,0)
+  val right: PhysicsVector = new PhysicsVector(1,0)
 
   def playerBody(xLocation: Double, yLocation: Double, color: Color): Shape = {
     new Rectangle {
@@ -45,10 +49,13 @@ object Game1 extends JFXApp {
         centerY = yLocation
         radius = 10.0
         fill = Color.Green
+        var direction: PhysicsVector = player.orientation
       }
       player.shoot()
+      val bulletDirection = bullet.direction
       sceneGraphics.children.add(bullet)
       listbullet = bullet :: listbullet
+      listBulletDirection = bulletDirection :: listBulletDirection
     }
 
 
@@ -114,14 +121,21 @@ object Game1 extends JFXApp {
       if(game.projectiles.isEmpty){
 
       }
-      else{
-          for (i <- listbullet) {
+      else {
+        var index = 0
+        for (i <- listbullet) {
+          if (listBulletDirection.apply(index).x == right.x) {
             i.translateX.value+=5
             i.translateY.value=5
-
+            index += 1
+          }
+          else if (listBulletDirection.apply(index).x == left.x) {
+            i.translateX.value -= 5
+            i.translateY.value = 5
+            index += 1
           }
         }
-
+      }
     }
     AnimationTimer(update).start()
   }
