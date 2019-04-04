@@ -26,22 +26,12 @@ class PressMovement(player: Player) extends EventHandler[KeyEvent] {
         case "A" => player.leftPressed()
         case "W" => player.jump()
         case "D" => player.rightPressed()
-//        case "V" => player.shoot()
+//        case "V" =>player.shoot()
+
         case _ =>
       }
       case _ =>
 
     }
   }
-}
-class shoot(player: Player) extends EventHandler[KeyEvent] {
-  override def handle(event: KeyEvent): Unit = {
-    val keyCode = event.getCode
-    if (event.getEventType.getName == "KEY_PRESSED" && keyCode.getName=="V") {
-      player.shoot()
-    }
-
-
-  }
-
 }
