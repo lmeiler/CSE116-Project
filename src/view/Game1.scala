@@ -19,7 +19,7 @@ object Game1 extends JFXApp {
   var lastUpdateTime: Long = System.nanoTime()
 
   var sceneGraphics: Group = new Group {}
-  var boundaries: List[Boundary] = List(new Boundary(new PhysicsVector(5, 590), new PhysicsVector(2005, 590)))
+  var boundaries: List[Boundary] = List(new Boundary(new PhysicsVector(5, 540), new PhysicsVector(2005, 540)))
   var game = new World(boundaries)
   var player = new Player(new PhysicsVector(200, 100), new PhysicsVector(0, 0), "abc", game)
   val playerS: Shape = playerBody(player.location.x, player.location.y, Color.Blue)
@@ -125,13 +125,13 @@ object Game1 extends JFXApp {
         var index = 0
         for (i <- listbullet) {
           if (listBulletDirection.apply(index).x == right.x) {
-            i.translateX.value+=5
-            i.translateY.value=5
+            i.translateX.value+=8
+            i.translateY.value=8
             index += 1
           }
           else if (listBulletDirection.apply(index).x == left.x) {
-            i.translateX.value -= 5
-            i.translateY.value = 5
+            i.translateX.value -= 8
+            i.translateY.value = 8
             index += 1
           }
         }
