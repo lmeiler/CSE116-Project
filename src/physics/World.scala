@@ -75,16 +75,18 @@ class World(var boundariesSet: List[Boundary]) {
     for (player <- this.players) {
       //      player.update(deltaTime)
       val newPotentialLocation = new PhysicsVector(player.location.x + player.velocity.x * deltaTime, player.location.y + player.velocity.y * deltaTime)
-      var collision = player.detectCollision(newPotentialLocation, this.boundariesSet)
-      if (collision == true) {
-        player.updateVelocity(this, deltaTime)
-        //        player.velocity.y -= this.gravity*deltaTime
-        player.location = newPotentialLocation
-        player.bottom = new PhysicsVector(player.location.x, player.location.y)
-        player.top = new PhysicsVector(player.location.x, player.location.y + 100)
-      }
-      else {
-        player.velocity.y = 0
+      for (platform <- this.boundariesSet) {
+        var collision = player.detectCollision(newPotentialLocation, platform)
+        if (collision == true) {
+          player.updateVelocity(this, deltaTime)
+          //        player.velocity.y -= this.gravity*deltaTime
+          player.location = newPotentialLocation
+          player.bottom = new PhysicsVector(player.location.x, player.location.y)
+          player.top = new PhysicsVector(player.location.x, player.location.y + 100)
+        }
+        else {
+          player.velocity.y = 0
+        }
       }
     }
     for (projectile <- this.projectiles) {

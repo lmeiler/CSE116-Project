@@ -20,9 +20,8 @@ abstract class PhysicalObject(var location: PhysicsVector, var velocity: Physics
   }
 
   def detectCollision(location3: PhysicsVector, boundary: Boundary): Boolean = {
-    var booleanList: ListBuffer[Boolean] = ListBuffer(true)
     if (this.location.x == location3.x && this.location.y == location3.y) {
-      booleanList += false
+      return false
     }
     var boundEnd1: PhysicsVector = boundary.end1
     var boundEnd2: PhysicsVector = boundary.end2
@@ -51,6 +50,7 @@ abstract class PhysicalObject(var location: PhysicsVector, var velocity: Physics
     }
     return true
   }
+}
 //    for (boundary <- boundaries) {
 //      var boundEnd1: PhysicsVector = boundary.end1
 //      var boundEnd2: PhysicsVector = boundary.end2
@@ -117,4 +117,3 @@ abstract class PhysicalObject(var location: PhysicsVector, var velocity: Physics
 //      }
 //    }
 //  }
-}
