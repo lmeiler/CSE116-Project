@@ -48,6 +48,9 @@ class World(var boundariesSet: List[Boundary]) {
       "No Winner Yet"
     }
   }
+  def addPlayer(userName:String): Unit ={
+    players += new Player(new PhysicsVector(1, 0), new PhysicsVector(0, 0),userName,this)
+  }
 
   //  def playersTakeDamage(): Unit = {
   //    for (player <- this.players) {
