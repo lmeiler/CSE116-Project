@@ -42,4 +42,24 @@ object Database {
     statement.setString(1, username)
     statement.execute()
   }
+  def loadPlayer(userName:String, player: Player):Player = {
+    val statement = connection.prepareStatement("SELECT * FROM players WHERE username=?")
+    statement.setString(1, username)
+    val result: ResultSet = statement.executeQuery()
+
+    result.next()
+    val location = new PhysicsVector(
+      result.getDouble("locationx"),
+      result.getDouble("locationy")
+    )
+    val velocity = new PhysicsVector(
+      result.getDouble("velocityx"),
+      result.getDouble("velocityy")
+    )
+
+    val newPlayer = new Player(location, velocity, userName, player.world)
+
+    newPlayer.health = result.getInt("health")
+    newPlayer
+  }
 }

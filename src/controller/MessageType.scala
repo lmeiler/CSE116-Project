@@ -1,10 +1,10 @@
 package controller
 
-case class AddPlayer(username:String)
+case class AddPlayer(username:String, x:Double, y: Double)
 case class RemovePlayer(username:String)
-case class KillPlayer(username:String)
+case class KillPlayer(username:String, x:Double, y:Double )
 case class TakeDamage(username:String)
-case class movePlayer(username:String)
+case class movePlayer(username:String, x: Double, y:Double)
 
 case object Update
 
