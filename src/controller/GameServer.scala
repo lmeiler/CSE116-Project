@@ -48,3 +48,15 @@ class GameServer(gameActor: ActorRef) extends Actor {
     }
   }
 }
+object GameServer {
+  def main(args: Array[String]): Unit = {
+    val actorSystem = ActorSystem()
+
+    import actorSystem.dispatcher
+
+    import scala.concurrent.duration._
+
+    val gameActor = actorSystem.actorOf(Props(classOf[GameActor]))
+    val server = actorSystem.actorOf(Props(classOf[GameServer], gameActor))
+  }
+}
