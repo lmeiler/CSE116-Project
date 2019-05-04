@@ -14,16 +14,30 @@ class GameActor(userName:String) extends Actor {
   override def receive: Receive = {
     case message:AddPlayer =>
       if(Database.playerExists(message.username)){
-        player = Database.loadPlayer(message.username,player)
+        val newPlayer = Database.loadPlayer(message.username,player)
+        game.players += newPlayer
       }
       else{
-        Database.createPlayer(message.username,new PhysicsVector(message.x,message.y) )
+        if (!Database.playerExists(message.username)) {
+          Database.createPlayer(message.username, new PhysicsVector(message.x, message.y))
+        }
+        else {
+          print("player has that name")
+        }
       }
     case message:RemovePlayer => Database.removePlayer(message.username)
-
+      game.players.foreach { player =>
+        if (player.username == message.username) {
+          game.players = game.players - player
+        }
+      }
+    case SendGameState => sender() ! GameState(game.gameState())
     case message:KillPlayer => Database.removePlayer(message.username)
       Database.createPlayer(message.username,new PhysicsVector(message.x,message.y))
-    case message:movePlayer => player.location = new PhysicsVector(message.x,message.y)
+    case message:movePlayer =>
+      player.location = new PhysicsVector(message.x,message.y)
+    case Update => game.update(System.nanoTime())
+
 
   }
 }

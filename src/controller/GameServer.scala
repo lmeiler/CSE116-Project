@@ -58,5 +58,7 @@ object GameServer {
 
     val gameActor = actorSystem.actorOf(Props(classOf[GameActor]))
     val server = actorSystem.actorOf(Props(classOf[GameServer], gameActor))
+    actorSystem.scheduler.schedule(16.milliseconds, 32.milliseconds, gameActor, Update)
+    actorSystem.scheduler.schedule(32.milliseconds, 32.milliseconds, server, SendGameState)
   }
 }

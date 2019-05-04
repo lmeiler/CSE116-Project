@@ -5,6 +5,7 @@ import objects._
 
 import scala.collection.mutable
 import physics._
+import play.api.libs.json.{JsValue, Json}
 
 import scala.collection.mutable.ListBuffer
 
@@ -96,6 +97,7 @@ class World(var boundariesSet: List[Boundary]) {
       val newPotentialLocation = new PhysicsVector(projectile.location.x + projectile.velocity.x * deltaTime, projectile.location.y)
       projectile.location = newPotentialLocation
     }
+
     //      val newProjectileLocation = projectile.computePotentialLocation(deltaTime)
     //
     //      //      This will give the projectile bullet-drop
@@ -119,7 +121,31 @@ class World(var boundariesSet: List[Boundary]) {
     //    }
     eliminatePlayers()
   }
+  def gameState():String ={
+    val gameState: Map[String, JsValue]= Map(
+      "projectiles" -> Json.toJson( Map(
+        projectiles.map({ po=>
+          Json.toJson(Map("x"-> po.location.x,"y"-> po.location))
+        })
+      )
+      ),
+      "players" -> Json.toJson( this.players.map( { case (player) =>
+        Json.toJson(Map(
+          "x" -> Json.toJson(player.location.x),
+          "y" -> Json.toJson(player.location.y),
+          "v_x" -> Json.toJson(player.location.x),
+          "v_y" -> Json.toJson(player.location.y),
+          "username" -> Json.toJson(player.username),
+          "health"-> Json.toJson(player.health)
+        )
+        )
+      })
+      ),
+
+    )
+  }
 }
+
 
 //  def tempUpdate(deltaTime: Double): Unit = {
 //    for (player <- this.players) {
