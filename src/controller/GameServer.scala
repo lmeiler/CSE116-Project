@@ -7,15 +7,16 @@ import akka.io.{IO, Tcp}
 import akka.util.ByteString
 import play.api.libs.json.{JsValue, Json}
 
-class GameServer(gameActor: ActorRef) extends Actor {
+class GameServer extends Actor {
   import Tcp._
   import context.system
 
   var webServers: Set[ActorRef] = Set()
   var buffer: String = ""
   val delimiter: String = "~"
+  var users:Map[String,ActorRef] = Map()
 
-  IO(Tcp) ! Bind(self, new InetSocketAddress("localhost", 8000))
+  IO(Tcp) ! Bind(self, new InetSocketAddress("localhost", 8080))
 
   override def receive: Receive = {
     case b:Bound => println("waiting on port: "+ b.localAddress.getPort)
@@ -41,10 +42,17 @@ class GameServer(gameActor: ActorRef) extends Actor {
     val x = (newMessage \ "x").as[Double]
     val y = (newMessage \ "y").as[Double]
 
+
+
     actionType match  {
-      case "connected" => gameActor ! AddPlayer(username,x,y)
-      case "disconnected" => gameActor ! RemovePlayer(username)
-      case "move"=> gameActor ! movePlayer(username,x,y)
+      case "connected" =>
+        val gameActor =context.actorOf(Props(classOf[GameActor], username))
+        gameActor ! AddPlayer(username,x,y)
+        users += (username -> gameActor)
+      case "disconnected" =>
+        users(username) ! RemovePlayer(username)
+        users = users - username
+      case "move"=> users(username) ! movePlayer(username,x,y)
     }
   }
 }
@@ -56,9 +64,9 @@ object GameServer {
 
     import scala.concurrent.duration._
 
-    val gameActor = actorSystem.actorOf(Props(classOf[GameActor]))
-    val server = actorSystem.actorOf(Props(classOf[GameServer], gameActor))
-    actorSystem.scheduler.schedule(16.milliseconds, 32.milliseconds, gameActor, Update)
+
+    val server = actorSystem.actorOf(Props(classOf[GameServer]))
+    actorSystem.scheduler.schedule(16.milliseconds, 32.milliseconds, server, Update)
     actorSystem.scheduler.schedule(32.milliseconds, 32.milliseconds, server, SendGameState)
   }
 }
