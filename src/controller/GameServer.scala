@@ -42,8 +42,6 @@ class GameServer extends Actor {
     val x = (newMessage \ "x").as[Double]
     val y = (newMessage \ "y").as[Double]
 
-
-
     actionType match  {
       case "connected" =>
         val gameActor =context.actorOf(Props(classOf[GameActor], username))

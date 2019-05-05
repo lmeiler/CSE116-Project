@@ -20,6 +20,8 @@ class GameActor(userName:String) extends Actor {
       else{
         if (!Database.playerExists(message.username)) {
           Database.createPlayer(message.username, new PhysicsVector(message.x, message.y))
+          val newPlayer = Database.loadPlayer(message.username,player)
+          game.players += newPlayer
         }
         else {
           print("player has that name")
@@ -35,7 +37,12 @@ class GameActor(userName:String) extends Actor {
     case message:KillPlayer => Database.removePlayer(message.username)
       Database.createPlayer(message.username,new PhysicsVector(message.x,message.y))
     case message:movePlayer =>
-      player.location = new PhysicsVector(message.x,message.y)
+      game.players.foreach { player =>
+        if (player.username == message.username){
+          player.location = new PhysicsVector(message.x, message.y)
+        }
+      }
+
     case Update => game.update(System.nanoTime())
 
 
