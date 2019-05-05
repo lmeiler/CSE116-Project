@@ -17,15 +17,10 @@ class GameActor(userName:String) extends Actor {
         val newPlayer = Database.loadPlayer(message.username,player)
         game.players += newPlayer
       }
-      else{
-        if (!Database.playerExists(message.username)) {
+      else if (!Database.playerExists(message.username)) {
           Database.createPlayer(message.username, new PhysicsVector(message.x, message.y))
           val newPlayer = Database.loadPlayer(message.username,player)
           game.players += newPlayer
-        }
-        else {
-          print("player has that name")
-        }
       }
     case message:RemovePlayer => Database.removePlayer(message.username)
       game.players.foreach { player =>
@@ -33,7 +28,9 @@ class GameActor(userName:String) extends Actor {
           game.players = game.players - player
         }
       }
-    case SendGameState => sender() ! GameState(game.gameState())
+    case SendGameState =>
+      game.update(System.nanoTime())
+      if (game != null) sender() ! GameState(game.gameState())
     case message:KillPlayer => Database.removePlayer(message.username)
       Database.createPlayer(message.username,new PhysicsVector(message.x,message.y))
     case message:movePlayer =>
@@ -42,7 +39,6 @@ class GameActor(userName:String) extends Actor {
           player.location = new PhysicsVector(message.x, message.y)
         }
       }
-
     case Update => game.update(System.nanoTime())
 
 
