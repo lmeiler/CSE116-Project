@@ -11,7 +11,7 @@ abstract class PhysicalObject(var location: PhysicsVector, var velocity: Physics
     val xTraveled = this.location.x + this.velocity.x * deltaTime
     val yTraveled = this.location.y + this.velocity.y * deltaTime
     val newVector: PhysicsVector = new PhysicsVector(this.location.x + xTraveled, this.location.y + yTraveled)
-    return newVector
+    newVector
   }
 
   def updateVelocity(world: World, deltaTime: Double): Unit = {
@@ -19,6 +19,28 @@ abstract class PhysicalObject(var location: PhysicsVector, var velocity: Physics
     this.velocity.y = newVelocity.y
   }
 
+
+  def detectCollision(para: PhysicalObject, potential_pos: PhysicsVector, boundary: Boundary): Boolean = {
+
+    if (Math.max(para.location.x, potential_pos.x) < Math.min(boundary.end1.x, boundary.end2.x)
+      || Math.max(para.location.y, potential_pos.y) < Math.min(boundary.end1.y, boundary.end2.y)
+      || Math.max(boundary.end1.x, boundary.end2.x) < Math.min(para.location.x, potential_pos.x)
+      || Math.max(boundary.end1.y, boundary.end2.y) < Math.min(para.location.y, potential_pos.y)) {
+      return true
+    }
+    if ((((para.location.x - boundary.end1.x) * (boundary.end2.y - boundary.end1.y) - (para.location.y - boundary.end1.y) * (boundary.end2.x - boundary.end1.x)) *
+      ((potential_pos.x - boundary.end1.x) * (boundary.end2.y - boundary.end1.y) - (potential_pos.y - boundary.end1.y) * (boundary.end2.x - boundary.end1.x))) > 0 ||
+      (((boundary.end1.x - para.location.x) * (potential_pos.y - para.location.y) - (boundary.end1.y - para.location.y) * (potential_pos.x - para.location.x)) *
+        ((boundary.end2.x - para.location.x) * (potential_pos.y - para.location.y) - (boundary.end2.y - para.location.y) * (potential_pos.x - para.location.x))) > 0) {
+      return true
+    }
+    false
+  }
+}
+
+
+
+  /*
   def detectCollision(location3: PhysicsVector, boundary: Boundary): Boolean = {
     if (this.location.x == location3.x && this.location.y == location3.y) {
       return false
@@ -51,6 +73,7 @@ abstract class PhysicalObject(var location: PhysicsVector, var velocity: Physics
     return true
   }
 }
+*/
 //    for (boundary <- boundaries) {
 //      var boundEnd1: PhysicsVector = boundary.end1
 //      var boundEnd2: PhysicsVector = boundary.end2
