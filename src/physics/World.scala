@@ -76,8 +76,8 @@ class World(var boundariesSet: List[Boundary]) {
       //      player.update(deltaTime)
       val newPotentialLocation = new PhysicsVector(player.location.x + player.velocity.x * deltaTime, player.location.y + player.velocity.y * deltaTime)
       for (platform <- this.boundariesSet) {
-        var collision = player.detectCollision(newPotentialLocation, platform)
-        if (collision == true) {
+        var collision = player.detectCollision(player, newPotentialLocation, platform)
+        if (collision) {
           player.updateVelocity(this, deltaTime)
           //        player.velocity.y -= this.gravity*deltaTime
           player.location = newPotentialLocation
