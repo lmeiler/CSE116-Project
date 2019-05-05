@@ -123,12 +123,7 @@ class World(var boundariesSet: List[Boundary]) {
   }
   def gameState():String ={
     val gameState: Map[String, JsValue]= Map(
-      "projectiles" -> Json.toJson( Map(
-        projectiles.map({ po=>
-          Json.toJson(Map("x"-> po.location.x,"y"-> po.location))
-        })
-      )
-      ),
+      "projectiles" -> Json.toJson(this.projectiles.map({ po => Json.toJson(Map("x" -> po.location.x, "y" -> po.location.y)) })),
       "players" -> Json.toJson( this.players.map( { case (player) =>
         Json.toJson(Map(
           "x" -> Json.toJson(player.location.x),
@@ -140,9 +135,9 @@ class World(var boundariesSet: List[Boundary]) {
         )
         )
       })
-      ),
-
+      )
     )
+    Json.stringify(Json.toJson(gameState))
   }
 }
 
