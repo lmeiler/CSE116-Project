@@ -83,6 +83,10 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
     this.world.projectiles += projectile
   }
 
+  def takeDamage(): Unit = {
+    this.health = this.health - 2
+  }
+
   def setTopBottom(): Unit = {
     this.top = new PhysicsVector(this.location.y + 100, this.location.x)
     this.bottom = new PhysicsVector(this.location.y, this.location.x)
