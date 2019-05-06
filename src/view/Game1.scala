@@ -18,17 +18,16 @@ import scala.collection.mutable.ListBuffer
 
 object Game1 extends JFXApp {
 
-  class HandleMessagesFromPython() extends Emitter.Listener {
-    override def call(objects: Object*): Unit = {
-      val message = objects.apply(0).toString
-      for(i<-message)
-      game.players += player
-
-    }
-  }
-  var socket: Socket = IO.socket("http://localhost:8080/")
-  socket.on("message", new HandleMessagesFromPython)
-  socket.connect()
+//  class HandleMessagesFromPython() extends Emitter.Listener {
+//    override def call(objects: Object*): Unit = {
+//      val message = objects.apply(0).toString
+//      for(i<-message) {
+//      }
+//    }
+//  }
+//  var socket: Socket = IO.socket("http://localhost:8080/")
+//  socket.on("message", new HandleMessagesFromPython)
+//  socket.connect()
 
   var lastUpdateTime: Long = System.nanoTime()
 
@@ -39,6 +38,8 @@ object Game1 extends JFXApp {
   val playerS: Shape = playerBody(player.location.x, player.location.y, Color.Blue)
   var playerBuffer: mutable.ListBuffer[Player] = ListBuffer[Player](player)
   val players = game.players
+  game.players += player
+
   var listbullet:List[Shape]=List()
   var listBulletDirection: List[PhysicsVector] = List()
 
