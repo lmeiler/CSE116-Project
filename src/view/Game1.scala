@@ -33,7 +33,7 @@ object Game1 extends JFXApp {
   var lastUpdateTime: Long = System.nanoTime()
 
   var sceneGraphics: Group = new Group {}
-  var boundaries: List[Boundary] = List(new Boundary(new PhysicsVector(5, 540), new PhysicsVector(2005, 540)))
+  var boundaries: List[Boundary] = List(new Boundary(new PhysicsVector(5, 400), new PhysicsVector(2005, 400)))
   var game = new World(boundaries)
   var player = new Player(new PhysicsVector(200, 100), new PhysicsVector(0, 0), "abc", game)
   val playerS: Shape = playerBody(player.location.x, player.location.y, Color.Blue)
