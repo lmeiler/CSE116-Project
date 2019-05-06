@@ -65,8 +65,6 @@
 <body onload="startGame()">
 
 <script>
-    var socket = io.connect({transports: ['websocket']});
-    socket.on('gameState', parseGameState);
 
     function parseGameState(event) {
         const gameState = JSON.parse(event);
@@ -76,10 +74,12 @@
     }
 
     function startGame() {
+        var socket = io.connect({transports: ['websocket']});
+        socket.on('gameState', parseGameState);
+
         myGameArea.start();
         myGamePiece = new component(10,200, "blue", 0, 600);
     }
-
 
     var myGameArea = {
 

@@ -1,6 +1,8 @@
 package view
 
 import controller.PressMovement
+import io.socket.client.{IO, Socket}
+import io.socket.emitter.Emitter
 import javafx.scene.input.{KeyEvent, MouseEvent}
 import main.Player
 import physics.{Boundary, PhysicsVector, World}
@@ -14,8 +16,20 @@ import scalafx.scene.{Group, Scene}
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
-
 object Game1 extends JFXApp {
+
+  class HandleMessagesFromPython() extends Emitter.Listener {
+    override def call(objects: Object*): Unit = {
+      val message = objects.apply(0).toString
+      for(i<-message)
+      game.players += player
+
+    }
+  }
+  var socket: Socket = IO.socket("http://localhost:8080/")
+  socket.on("message", new HandleMessagesFromPython)
+  socket.connect()
+
   var lastUpdateTime: Long = System.nanoTime()
 
   var sceneGraphics: Group = new Group {}
@@ -24,7 +38,6 @@ object Game1 extends JFXApp {
   var player = new Player(new PhysicsVector(200, 100), new PhysicsVector(0, 0), "abc", game)
   val playerS: Shape = playerBody(player.location.x, player.location.y, Color.Blue)
   var playerBuffer: mutable.ListBuffer[Player] = ListBuffer[Player](player)
-  game.players += player
   val players = game.players
   var listbullet:List[Shape]=List()
   var listBulletDirection: List[PhysicsVector] = List()
