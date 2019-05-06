@@ -96,6 +96,11 @@ class World(var boundariesSet: List[Boundary]) {
     for (projectile <- this.projectiles) {
       val newPotentialLocation = new PhysicsVector(projectile.location.x + projectile.velocity.x * deltaTime, projectile.location.y)
       projectile.location = newPotentialLocation
+      for (player <- this.players) {
+        if (!projectile.detectCollision(projectile, newPotentialLocation, player.playerBoundary)) {
+          player.takeDamage
+        }
+      }
     }
 
     //      val newProjectileLocation = projectile.computePotentialLocation(deltaTime)
