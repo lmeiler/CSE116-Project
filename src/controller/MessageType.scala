@@ -11,4 +11,4 @@ case class movePlayer(username:String, x: Double, y:Double)
 
 case object Update
 
-case object Shoot
+case class Shoot(username:String)
