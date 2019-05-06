@@ -18,16 +18,17 @@ import scala.collection.mutable.ListBuffer
 
 object Game1 extends JFXApp {
 
-//  class HandleMessagesFromPython() extends Emitter.Listener {
-//    override def call(objects: Object*): Unit = {
-//      val message = objects.apply(0).toString
-//      for(i<-message) {
-//      }
-//    }
-//  }
-//  var socket: Socket = IO.socket("http://localhost:8080/")
-//  socket.on("message", new HandleMessagesFromPython)
-//  socket.connect()
+  class HandleMessagesFromPython() extends Emitter.Listener {
+    override def call(objects: Object*): Unit = {
+      val message = objects.apply(0).toString
+      for(i<-message) {
+        println(i)
+      }
+    }
+  }
+  var socket: Socket = IO.socket("http://localhost:8080/")
+  socket.on("message", new HandleMessagesFromPython)
+  socket.connect()
 
   var lastUpdateTime: Long = System.nanoTime()
 
@@ -36,9 +37,12 @@ object Game1 extends JFXApp {
   var game = new World(boundaries)
   var player = new Player(new PhysicsVector(200, 100), new PhysicsVector(0, 0), "abc", game)
   val playerS: Shape = playerBody(player.location.x, player.location.y, Color.Blue)
-  var playerBuffer: mutable.ListBuffer[Player] = ListBuffer[Player](player)
+  var playerBuffer: mutable.ListBuffer[Shape] = ListBuffer[Shape]()
   val players = game.players
   game.players += player
+  for(i<-players){
+   playerBuffer += playerBody(i.location.x, i.location.y, Color.Blue)
+  }
 
   var listbullet:List[Shape]=List()
   var listBulletDirection: List[PhysicsVector] = List()
@@ -70,6 +74,10 @@ object Game1 extends JFXApp {
       sceneGraphics.children.add(bullet)
       listbullet = bullet :: listbullet
       listBulletDirection = bulletDirection :: listBulletDirection
+    }
+
+    for(i<-playerBuffer){
+      sceneGraphics.children.add(i)
     }
 
 
@@ -110,7 +118,6 @@ object Game1 extends JFXApp {
   sceneGraphics.children.add(obs20)
   sceneGraphics.children.add(obs21)
   sceneGraphics.children.add(obs22)
-  sceneGraphics.children.add(playerS)
 
   this.stage = new PrimaryStage {
     this.title = "Battle World"
@@ -129,9 +136,10 @@ object Game1 extends JFXApp {
       val deltaTime: Double = (time - lastUpdateTime) / 1000000000.0
       lastUpdateTime = time
       game.update(deltaTime)
-
-      playerS.translateX.value = game.players.head.location.x
-      playerS.translateY.value = game.players.head.location.y
+      for(i<-playerBuffer) {
+        i.translateX.value = game.players.head.location.x
+        i.translateY.value = game.players.head.location.y
+      }
       if(game.projectiles.isEmpty){
 
       }
