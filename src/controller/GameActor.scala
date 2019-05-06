@@ -39,6 +39,7 @@ class GameActor(userName:String) extends Actor {
           player.location = new PhysicsVector(message.x, message.y)
         }
       }
+    case message:Shoot => game.players.foreach(player => if(player.username==message.username) player.shoot())
     case Update => game.update(System.nanoTime())
 
 
