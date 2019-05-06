@@ -18,7 +18,7 @@ class World(var boundariesSet: List[Boundary]) {
   //  val boundariesSet: List[Boundary] = List.empty
   var lastUpdateTime: Double = System.nanoTime()
   var players: mutable.ListBuffer[Player] = mutable.ListBuffer[Player]()
-  var player: Player = new Player(new PhysicsVector(1, 0), new PhysicsVector(0, 0), "user", this)
+ // var player: Player = new Player(new PhysicsVector(1, 0), new PhysicsVector(0, 0), "user", this)
 
   def eliminatePlayers(): Unit = {
     //    val buffer: mutable.Buffer[Player] = this.players.toBuffer
