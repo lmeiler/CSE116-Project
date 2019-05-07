@@ -1,6 +1,6 @@
 package controller
 
-  import javafx.event._
+import javafx.event._
   import main._
   import view._
 

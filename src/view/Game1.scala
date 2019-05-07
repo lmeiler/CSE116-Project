@@ -107,7 +107,7 @@ object Game1 extends JFXApp {
 
       addEventHandler(KeyEvent.KEY_PRESSED, new PressMovement(player))
       addEventHandler(KeyEvent.KEY_RELEASED, new PressMovement(player))
-      addEventHandler(MouseEvent.MOUSE_CLICKED, (event: MouseEvent) => bulletBody(game.players.head.location.x, game.players.head.location.y,Color.Black))
+      addEventHandler(MouseEvent.MOUSE_CLICKED, (event: MouseEvent) => bulletBody(game.players.head.location.x + (1*game.players.head.orientation.x), game.players.head.location.y,Color.Black))
 
     }
     val update: Long => Unit = (time: Long) => {
@@ -118,6 +118,9 @@ object Game1 extends JFXApp {
 
       playerS.translateX.value = game.players.head.location.x
       playerS.translateY.value = game.players.head.location.y
+
+      println(game.players.head.health)
+
       if(game.projectiles.isEmpty){
 
       }
