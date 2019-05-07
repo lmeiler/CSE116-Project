@@ -80,9 +80,9 @@ def index():
     return send_from_directory("static", 'game.html')
 
 
-@app.route('/<path:filename>')
-def static_files(filename):
-    return send_from_directory('static', filename)
+# @app.route('/<path:filename>')
+# def static_files(filename):
+#     return send_from_directory('static', filename)
 
 
 print("Listening on port 8080")
