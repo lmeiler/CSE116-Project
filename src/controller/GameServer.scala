@@ -1,4 +1,5 @@
 package controller
+
 import java.net.InetSocketAddress
 
 import akka.actor.{Actor, ActorRef, ActorSystem, PoisonPill, Props}
@@ -35,14 +36,14 @@ class GameServer(gameActor: ActorRef) extends Actor {
         webServerMessageHandler(curr)
       }
     case SendGameState =>
-      gameActor ! Update
+      gameActor ! SendGameState
     case gs:GameState =>
       this.webServers.foreach((client: ActorRef) => client ! Write(ByteString(gs.gameState + delimiter)))
   }
   def webServerMessageHandler(message:String): Unit ={
     val newMessage: JsValue = Json.parse(message)
     val username = (newMessage \ "username").as[String]
-    val actionType = (newMessage \ "acton").as[String]
+    val actionType = (newMessage \ "action").as[String]
     val x = (newMessage \ "x").as[Double]
     val y = (newMessage \ "y").as[Double]
 
@@ -65,7 +66,7 @@ object GameServer {
 
     val game = actorSystem.actorOf(Props(classOf[GameActor]))
     val server = actorSystem.actorOf(Props(classOf[GameServer],game))
-    actorSystem.scheduler.schedule(16.milliseconds, 32.milliseconds, server, Update)
+    actorSystem.scheduler.schedule(16.milliseconds, 32.milliseconds, game, Update)
     actorSystem.scheduler.schedule(32.milliseconds, 32.milliseconds, server, SendGameState)
   }
 }

@@ -71,6 +71,7 @@
 
     function parseGameState(event) {
         const gameState = JSON.parse(event);
+        print(player.length)
         for(let i of gameState["players"]){
            component(10,200, "blue", 0, 600);
         }
