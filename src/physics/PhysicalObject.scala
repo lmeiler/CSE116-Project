@@ -1,6 +1,9 @@
 package physics
 
 import java.lang.Math.{max, min}
+
+import objects.Projectile
+
 import scala.collection.mutable.ListBuffer
 
 abstract class PhysicalObject(var location: PhysicsVector, var velocity: PhysicsVector) {
@@ -35,6 +38,31 @@ abstract class PhysicalObject(var location: PhysicsVector, var velocity: Physics
       return true
     }
     false
+  }
+
+  def projectilePlayerCollision(projectile: Projectile, deltaTime: Double, boundary: Boundary): Boolean = {
+    if (projectile.location.x > boundary.end2.x) {
+      val newLoc = projectile.computePotentialLocation(deltaTime)
+      if (newLoc.x < boundary.end2.x) {
+        return true
+      }
+      else {
+        return false
+      }
+    }
+
+    if (projectile.location.x < boundary.end2.x) {
+      val newLoc = projectile.computePotentialLocation(deltaTime)
+      if (newLoc.x > boundary.end2.x) {
+        return true
+      }
+      else {
+        return false
+      }
+    }
+    else {
+      return false
+    }
   }
 }
 

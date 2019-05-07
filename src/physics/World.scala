@@ -63,19 +63,19 @@ class World(var boundariesSet: List[Boundary]) {
   //
   //  }
 
-  def createPlayerBoundaries(): List[Boundary] = {
-    var boundaryList: List[Boundary] = List.empty
+  def createPlayerBoundaries(): Map[Player, Boundary] = {
+    var boundaryMap: Map[Player, Boundary] = Map()
     for (player <- this.players) {
-      boundaryList :+ player.playerBoundary
+      boundaryMap = boundaryMap.updated(player, player.playerBoundary)
     }
-    boundaryList
+    boundaryMap
   }
 
   //Luke - I'm trying to work on updating each of the "objects" (meaning players and projectiles) with new locations and hit detection
   // this is not finished by any means
 
   def update(deltaTime: Double): Unit = {
-    var playerBoundaries: List[Boundary] = createPlayerBoundaries()
+    var playerBoundaries: Map[Player, Boundary] = createPlayerBoundaries()
     for (player <- this.players) {
       //      player.update(deltaTime)
       val newPotentialLocation = new PhysicsVector(player.location.x + player.velocity.x * deltaTime, player.location.y + player.velocity.y * deltaTime)
@@ -93,15 +93,21 @@ class World(var boundariesSet: List[Boundary]) {
         }
       }
     }
+
     for (projectile <- this.projectiles) {
-      val newPotentialLocation = new PhysicsVector(projectile.location.x + projectile.velocity.x * deltaTime, projectile.location.y)
-      projectile.location = newPotentialLocation
-      for (player <- this.players) {
-        if (!projectile.detectCollision(projectile, newPotentialLocation, player.playerBoundary)) {
-          player.takeDamage
+      if (this.projectiles.nonEmpty) {
+        val newPotentialLocation = new PhysicsVector(projectile.location.x + projectile.velocity.x * deltaTime, projectile.location.y)
+        projectile.location = newPotentialLocation
+
+        for (player <- playerBoundaries.keys) {
+          if (projectile.projectilePlayerCollision(projectile, deltaTime, player.playerBoundary)) {
+            player.takeDamage
+            this.projectiles -= projectile
+          }
         }
       }
     }
+
 
     //      val newProjectileLocation = projectile.computePotentialLocation(deltaTime)
     //
@@ -126,6 +132,7 @@ class World(var boundariesSet: List[Boundary]) {
     //    }
     eliminatePlayers()
   }
+
   def gameState():String ={
     val gameState: Map[String, JsValue]= Map(
       "projectiles" -> Json.toJson(this.projectiles.map({ po => Json.toJson(Map("x" -> po.location.x, "y" -> po.location.y)) })),
