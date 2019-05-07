@@ -28,10 +28,11 @@ def listen_to_scala(the_socket):
             message = buffer[:buffer.find(delimiter)]
             buffer = buffer[buffer.find(delimiter) + 1:]
             get_from_scala(message)
+            print(message)
 
 
 def get_from_scala(data):
-    print(data)
+    # print(data)
     socket_server.emit('gameState', data, broadcast=True)
 
 
@@ -80,7 +81,7 @@ def index():
     return send_from_directory("static", 'game.html')
 
 
-# @app.route('/<path:filename>')
+# @app.route('/<path:filename>  ')
 # def static_files(filename):
 #     return send_from_directory('static', filename)
 
