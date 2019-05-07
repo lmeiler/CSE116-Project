@@ -2,7 +2,7 @@ package main
 
 import java.sql.{Connection, DriverManager, ResultSet}
 
-import physics.PhysicsVector
+import physics.{PhysicsVector, World}
 
 object Database {
 
@@ -42,7 +42,7 @@ object Database {
     statement.setString(1, username)
     statement.execute()
   }
-  def loadPlayer(userName:String, player: Player):Player = {
+  def loadPlayer(userName:String, world: World):Player = {
     val statement = connection.prepareStatement("SELECT * FROM players WHERE username=?")
     statement.setString(1, username)
     val result: ResultSet = statement.executeQuery()
@@ -57,7 +57,8 @@ object Database {
       result.getDouble("velocityy")
     )
 
-    val newPlayer = new Player(location, velocity, userName, player.world)
+
+    val newPlayer = new Player(location, velocity, userName, world)
 
     newPlayer.health = result.getInt("health")
     newPlayer

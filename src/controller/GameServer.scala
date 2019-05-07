@@ -7,16 +7,16 @@ import akka.io.{IO, Tcp}
 import akka.util.ByteString
 import play.api.libs.json.{JsValue, Json}
 
-class GameServer extends Actor {
+class GameServer(gameActor: ActorRef) extends Actor {
   import Tcp._
   import context.system
 
   var webServers: Set[ActorRef] = Set()
   var buffer: String = ""
   val delimiter: String = "~"
-  var users:Map[String,ActorRef] = Map()
 
-  IO(Tcp) ! Bind(self, new InetSocketAddress("localhost", 8080))
+
+  IO(Tcp) ! Bind(self, new InetSocketAddress("localhost", 8000))
 
   override def receive: Receive = {
     case b:Bound => println("waiting on port: "+ b.localAddress.getPort)
@@ -35,7 +35,7 @@ class GameServer extends Actor {
         webServerMessageHandler(curr)
       }
     case SendGameState =>
-      users.values.foreach(gameActor => gameActor !  SendGameState)
+      gameActor ! Update
     case gs:GameState =>
       this.webServers.foreach((client: ActorRef) => client ! Write(ByteString(gs.gameState + delimiter)))
   }
@@ -48,13 +48,10 @@ class GameServer extends Actor {
 
     actionType match  {
       case "connected" =>
-        val gameActor =context.actorOf(Props(classOf[GameActor], username))
         gameActor ! AddPlayer(username,x,y)
-        users += (username -> gameActor)
       case "disconnected" =>
-        users(username) ! RemovePlayer(username)
-        users = users - username
-      case "move"=> users(username) ! movePlayer(username,x,y)
+        gameActor ! RemovePlayer(username)
+      case "move"=> gameActor ! movePlayer(username,x,y)
     }
   }
 }
