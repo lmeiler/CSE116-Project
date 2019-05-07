@@ -146,14 +146,14 @@
     }
     function obstacle1() {
         ctx.beginPath();
-        ctx.rect(105, 150, 75, 30);
+        ctx.rect(900, 150, 75, 30);
         ctx.fillStyle = "black";
         ctx.fill();
         ctx.closePath();
     }
     function obstacle2() {
         ctx.beginPath();
-        ctx.rect(195, 200, 75, 30);
+        ctx.rect(850, 455, 75, 30);
         ctx.fillStyle = "black";
         ctx.fill();
         ctx.closePath();
@@ -200,6 +200,41 @@
         ctx.fill();
         ctx.closePath();
     }
+    function obstacle9() {
+        ctx.beginPath();
+        ctx.rect(100, 200, 75, 30);
+        ctx.fillStyle = "brown";
+        ctx.fill();
+        ctx.closePath();
+    }
+    function obstacle10() {
+        ctx.beginPath();
+        ctx.rect(600, 400, 75, 30);
+        ctx.fillStyle = "brown";
+        ctx.fill();
+        ctx.closePath();
+    }
+    function obstacle11() {
+        ctx.beginPath();
+        ctx.rect(500, 455, 75, 30);
+        ctx.fillStyle = "brown";
+        ctx.fill();
+        ctx.closePath();
+    }
+    function obstacle12() {
+        ctx.beginPath();
+        ctx.rect(267, 155, 75, 30);
+        ctx.fillStyle = "brown";
+        ctx.fill();
+        ctx.closePath();
+    }
+    function obstacle13() {
+        ctx.beginPath();
+        ctx.rect(678, 155, 75, 30);
+        ctx.fillStyle = "brown";
+        ctx.fill();
+        ctx.closePath();
+    }
     function draw(){
         ground();
         obstacle();
@@ -211,6 +246,15 @@
         obstacle6();
         obstacle7();
         obstacle8();
+        obstacle9();
+        obstacle10();
+        obstacle11();
+        obstacle12();
+        obstacle13();
+
+
+
+
     }
 
 
