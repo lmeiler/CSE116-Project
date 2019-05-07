@@ -3,6 +3,8 @@
 <head>
     <title>Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+
     <style>
         table, th, td {
             border: 1px solid black;
@@ -62,31 +64,26 @@
 <p>
 
 
-<body onload="startGame()">
 
+<body onload="startGame()">
 <script>
+
 
     function parseGameState(event) {
         const gameState = JSON.parse(event);
         for(let i of gameState["players"]){
-            draw(new component(10,200, "blue", 0, 600));
+           component(10,200, "blue", 0, 600);
         }
     }
-
     function startGame() {
         var socket = io.connect({transports: ['websocket']});
         socket.on('gameState', parseGameState);
-
         myGameArea.start();
         myGamePiece = new component(10,200, "blue", 0, 600);
     }
-
     var myGameArea = {
-
         canvas : document.createElement("canvas"),
-
         start : function() {
-
             this.canvas.width = 1900;
             this.canvas.height = 900;
             this.context = this.canvas.getContext("2d");
@@ -104,7 +101,6 @@
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         }
     }
-
     function component(width, height, color, x, y) {
         this.gamearea = myGameArea;
         this.width = width;
@@ -123,8 +119,6 @@
             this.y += this.speedY;
         }
     }
-
-
     function updateGameArea() {
         myGameArea.clear();
         myGamePiece.speedX = 0;
@@ -142,7 +136,6 @@
         ctx.fillStyle = "green";
         ctx.fill();
         ctx.stroke();
-
     }
     function obstacle() {
         ctx.beginPath();
@@ -207,7 +200,6 @@
         ctx.fill();
         ctx.closePath();
     }
-
     function draw(){
         ground();
         obstacle();
@@ -220,6 +212,10 @@
         obstacle7();
         obstacle8();
     }
+
+
 </script>
+
+
 </body>
 </html>
