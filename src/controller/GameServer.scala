@@ -63,8 +63,8 @@ object GameServer {
 
     import scala.concurrent.duration._
 
-
-    val server = actorSystem.actorOf(Props(classOf[GameServer]))
+    val game = actorSystem.actorOf(Props(classOf[GameActor]))
+    val server = actorSystem.actorOf(Props(classOf[GameServer],game))
     actorSystem.scheduler.schedule(16.milliseconds, 32.milliseconds, server, Update)
     actorSystem.scheduler.schedule(32.milliseconds, 32.milliseconds, server, SendGameState)
   }
