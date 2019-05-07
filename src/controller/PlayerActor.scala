@@ -13,7 +13,6 @@ class PlayerActor(gameActor: GameActor, player:Player)  extends Actor{
     case Shoot=>
       if (gameState != "")
       player.shoot()
-
   }
 
 

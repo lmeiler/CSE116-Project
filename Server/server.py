@@ -31,6 +31,7 @@ def listen_to_scala(the_socket):
 
 
 def get_from_scala(data):
+    print(data)
     socket_server.emit('gameState', data, broadcast=True)
 
 
@@ -76,12 +77,12 @@ def key_state(jsonKeyStates):
 
 @app.route('/')
 def index():
-    return send_from_directory('static', 'index.html')
+    return send_from_directory("static", 'game.html')
 
 
-@app.route('/<path:filename>')
-def static_files(filename):
-    return send_from_directory('static', filename)
+# @app.route('/<path:filename>')
+# def static_files(filename):
+#     return send_from_directory('static', filename)
 
 
 print("Listening on port 8080")

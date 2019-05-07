@@ -1,8 +1,6 @@
 package view
 
 import controller.PressMovement
-import io.socket.client.{IO, Socket}
-import io.socket.emitter.Emitter
 import javafx.scene.input.{KeyEvent, MouseEvent}
 import main.Player
 import physics.{Boundary, PhysicsVector, World}
@@ -16,30 +14,18 @@ import scalafx.scene.{Group, Scene}
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
+
 object Game1 extends JFXApp {
-
-//  class HandleMessagesFromPython() extends Emitter.Listener {
-//    override def call(objects: Object*): Unit = {
-//      val message = objects.apply(0).toString
-//      for(i<-message) {
-//      }
-//    }
-//  }
-//  var socket: Socket = IO.socket("http://localhost:8080/")
-//  socket.on("message", new HandleMessagesFromPython)
-//  socket.connect()
-
   var lastUpdateTime: Long = System.nanoTime()
 
   var sceneGraphics: Group = new Group {}
-  var boundaries: List[Boundary] = List(new Boundary(new PhysicsVector(5, 400), new PhysicsVector(2005, 400)))
+  var boundaries: List[Boundary] = List(new Boundary(new PhysicsVector(5, 540), new PhysicsVector(2005, 540)))
   var game = new World(boundaries)
   var player = new Player(new PhysicsVector(200, 100), new PhysicsVector(0, 0), "abc", game)
   val playerS: Shape = playerBody(player.location.x, player.location.y, Color.Blue)
   var playerBuffer: mutable.ListBuffer[Player] = ListBuffer[Player](player)
-  val players = game.players
   game.players += player
-
+  val players = game.players
   var listbullet:List[Shape]=List()
   var listBulletDirection: List[PhysicsVector] = List()
 
@@ -57,20 +43,20 @@ object Game1 extends JFXApp {
   }
 
 
-    def bulletBody(xLocation: Double, yLocation: Double, color: Color): Unit= {
-      var bullet = new Circle {
-        centerX = xLocation
-        centerY = yLocation
-        radius = 10.0
-        fill = Color.Green
-        var direction: PhysicsVector = player.orientation
-      }
-      player.shoot()
-      val bulletDirection = bullet.direction
-      sceneGraphics.children.add(bullet)
-      listbullet = bullet :: listbullet
-      listBulletDirection = bulletDirection :: listBulletDirection
+  def bulletBody(xLocation: Double, yLocation: Double, color: Color): Unit= {
+    var bullet = new Circle {
+      centerX = xLocation
+      centerY = yLocation
+      radius = 10.0
+      fill = Color.Green
+      var direction: PhysicsVector = player.orientation
     }
+    player.shoot()
+    val bulletDirection = bullet.direction
+    sceneGraphics.children.add(bullet)
+    listbullet = bullet :: listbullet
+    listBulletDirection = bulletDirection :: listBulletDirection
+  }
 
 
   var rect = Rectangle(5, 590, 2000, 200)
