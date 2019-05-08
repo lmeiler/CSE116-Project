@@ -7,13 +7,19 @@
 
 </head>
 <body onload="startGame()">
+<canvas id="canvas" width="1000" height="1000"></canvas>
+
+
 <script>
-    
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    draw();
+
     var gs="";
 
     function startGame() {
         var socket = io.connect({transports: ['websocket']});
-        socket.on('gameState', parseGameState);
+        socket.on('gs', parseGameState);
 
     }
     function parseGameState(event) {
@@ -24,26 +30,25 @@
         for(let j of gs['projectiles']) {
             Circle(j['x'], j['y'], "black", 1);
         }
-        draw()
     }
 
     function drawplayer(x, y, color) {
-        context.fillStyle = color;
-        context.fillRect(10 , 200 ,x, y);
-        context.strokeStyle = 'black';
-        context.strokeRect(10 , 200, x,y);
+        ctx.fillStyle = color;
+        ctx.fillRect(10 , 200 ,x, y);
+        ctx.strokeStyle = 'black';
+        ctx.strokeRect(10 , 200, x,y);
     }
     function Circle(x, y, color, size) {
-        context.fillStyle = color;
-        context.beginPath();
-        context.arc(x ,
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(x ,
             y ,
             size / 10.0 * 30,
             0,
             2 * Math.PI);
-        context.fill();
-        context.strokeStyle = 'black';
-        context.stroke();
+        ctx.fill();
+        ctx.strokeStyle = 'black';
+        ctx.stroke();
     }
 
 
@@ -138,7 +143,7 @@
     function setState(key, toSet){
         if(keyS[key] !== toSet){
             keyS[key] = toSet;
-            socket.emit("keyS", JSON.stringify(keyS));
+            socket.emit(JSON.stringify(keyS));
         }
     }
 
