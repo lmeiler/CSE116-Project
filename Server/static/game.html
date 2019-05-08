@@ -25,7 +25,7 @@
 
     function startGame() {
         var socket = io.connect({transports: ['websocket']});
-        socket.on('gs', parseGameState);
+        socket.on('gameState', parseGameState);
 
     }
     function parseGameState(event) {
