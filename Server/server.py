@@ -15,7 +15,7 @@ socket_server = SocketIO(app)
 # ** Consudnect to Scala TCP socket server **
 
 scala_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-scala_socket.connect(('localhost', 8000))
+scala_socket.connect(('localhost', 9000))
 
 delimiter = "~"
 
@@ -32,7 +32,7 @@ def listen_to_scala(the_socket):
 
 
 def get_from_scala(data):
-    # print(data)
+    print(data)
     socket_server.emit('gameState', data, broadcast=True)
 
 
@@ -62,6 +62,7 @@ def disconnect():
 @socket_server.on('keyStates')
 def key_state(jsonKeyStates):
     key_states = json.loads(jsonKeyStates)
+    print(key_state)
     x = 0.0
     if key_states["a"] and not key_states["d"]:
         x = -1.0
