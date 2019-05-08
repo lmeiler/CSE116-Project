@@ -52,6 +52,9 @@ class World(var boundariesSet: List[Boundary]) {
   def addPlayer(userName:String): Unit ={
     players += new Player(new PhysicsVector(1, 0), new PhysicsVector(0, 0),userName,this)
   }
+  def removePlayer(userName:String): Unit ={
+    //players.foreach(p => if (p.username == u)  )
+  }
 
   //  def playersTakeDamage(): Unit = {
   //    for (player <- this.players) {
