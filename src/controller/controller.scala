@@ -13,11 +13,12 @@ import scala.collection.mutable
 //each class is a different key press
 
 class PressMovement(player: Player) extends EventHandler[KeyEvent] {
+
   override def handle(event: KeyEvent): Unit = {
     val keyCode = event.getCode
     event.getEventType.getName match {
       case "KEY_RELEASED" => keyCode.getName match {
-          case "A" => player.leftRelease()
+          case "A" => player.rightRelease()
 //          case "W" => player.jumpReleased()
           case "D" => player.rightRelease()
           case _ =>

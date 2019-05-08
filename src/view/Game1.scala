@@ -15,6 +15,7 @@ import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
 
+
 object Game1 extends JFXApp {
   var lastUpdateTime: Long = System.nanoTime()
 
