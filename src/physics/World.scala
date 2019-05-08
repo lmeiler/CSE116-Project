@@ -52,9 +52,6 @@ class World(var boundariesSet: List[Boundary]) {
   def addPlayer(userName:String): Unit ={
     players += new Player(new PhysicsVector(1, 0), new PhysicsVector(0, 0),userName,this)
   }
-  def removePlayer(userName:String): Unit ={
-    //players.foreach(p => if (p.username == u)  )
-  }
 
   //  def playersTakeDamage(): Unit = {
   //    for (player <- this.players) {
@@ -139,15 +136,14 @@ class World(var boundariesSet: List[Boundary]) {
   def gameState():String ={
     val gameState: Map[String, JsValue]= Map(
       "projectiles" -> Json.toJson(this.projectiles.map({ po => Json.toJson(Map("x" -> po.location.x, "y" -> po.location.y)) })),
-      "players" -> Json.toJson( this.players.map( { case (player) =>
+      "players" -> Json.toJson( this.players.map( { player =>
         Json.toJson(Map(
           "x" -> Json.toJson(player.location.x),
-          "y" -> Json.toJson(player.location.y),
-          "v_x" -> Json.toJson(player.location.x),
-          "v_y" -> Json.toJson(player.location.y),
-          "v_y" -> Json.toJson(player.location.y),
-          "username"-> Json.toJson(player.username),
-          "health" -> Json.toJson(player.health)
+          "y" -> player.location.y,
+          "v_x" -> player.velocity.x,
+          "v_y" -> player.velocity.y,
+          "username" -> player.username,
+          "health"-> player.health
         )
         )
       })
