@@ -15,7 +15,7 @@ socket_server = SocketIO(app)
 # ** Consudnect to Scala TCP socket server **
 
 scala_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-scala_socket.connect(('localhost', 9000))
+scala_socket.connect(('localhost', 8000))
 
 delimiter = "~"
 

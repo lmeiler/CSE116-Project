@@ -2,7 +2,7 @@
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Python" name="Python">
-      <configuration sdkName="Python 3.7" />
+      <configuration sdkName="Python 3.6 (HW)" />
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5">
@@ -48,7 +48,6 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:mac:12-ea+14" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:12-ea+14" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:mac:12-ea+14" level="project" />
-    <orderEntry type="library" name="Python 3.7 interpreter library" level="application" />
-    <orderEntry type="library" exported="" name="Python 3.7 (2) interpreter library" level="application" />
+    <orderEntry type="library" name="Python 3.6 (HW) interpreter library" level="application" />
   </component>
 </module>
