@@ -29,6 +29,7 @@ class GameServer(gameActor: ActorRef) extends Actor {
       println("Client Disconnected: " + sender())
       this.webServers = this.webServers - sender()
     case r:Received =>
+      print(r.data.utf8String)
       buffer += r.data.utf8String
       while (buffer.contains(delimiter)){
         val curr = buffer.substring(0, buffer.indexOf(delimiter))
@@ -44,15 +45,17 @@ class GameServer(gameActor: ActorRef) extends Actor {
     val newMessage: JsValue = Json.parse(message)
     val username = (newMessage \ "username").as[String]
     val actionType = (newMessage \ "action").as[String]
-    val x = (newMessage \ "x").as[Double]
-    val y = (newMessage \ "y").as[Double]
 
     actionType match  {
       case "connected" =>
-        gameActor ! AddPlayer(username,x,y)
+        gameActor ! AddPlayer(username,1,1)
       case "disconnected" =>
         gameActor ! RemovePlayer(username)
-      case "move"=> gameActor ! movePlayer(username,x,y)
+      case "move"=>
+          val x = (newMessage \ "x").as[Double]
+          val y = (newMessage \ "y").as[Double]
+        gameActor ! movePlayer(username,x,y)
+
     }
   }
 }
