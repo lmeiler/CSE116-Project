@@ -139,11 +139,11 @@ class World(var boundariesSet: List[Boundary]) {
       "players" -> Json.toJson( this.players.map( { player =>
         Json.toJson(Map(
           "x" -> Json.toJson(player.location.x),
-          "y" -> player.location.y,
-          "v_x" -> player.velocity.x,
-          "v_y" -> player.velocity.y,
-          "username" -> player.username,
-          "health"-> player.health
+          "y" -> Json.toJson(player.location.y),
+          "v_x" -> Json.toJson(player.velocity.x),
+          "v_y" -> Json.toJson(player.velocity.y),
+          "username" -> Json.toJson(player.username),
+          "health"-> Json.toJson(player.health)
         )
         )
       })

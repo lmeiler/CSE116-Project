@@ -67,6 +67,12 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
     this.velocity.x = this.speed
   }
 
+  def move(direction: PhysicsVector){
+    val normalDirection = direction.normal2d()
+
+    this.velocity.x = normalDirection.x * speed
+    this.velocity.y = normalDirection.y * speed
+  }
 //  def jump(): Unit = {
 //    this.velocity.y = 15
 //  }
