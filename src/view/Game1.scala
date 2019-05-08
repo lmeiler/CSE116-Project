@@ -1,6 +1,8 @@
 package view
 
 import controller.PressMovement
+import io.socket.client.{IO, Socket}
+import io.socket.emitter.Emitter
 import javafx.scene.input.{KeyEvent, MouseEvent}
 import main.Player
 import physics.{Boundary, PhysicsVector, World}
@@ -17,6 +19,19 @@ import scala.collection.mutable.ListBuffer
 
 
 object Game1 extends JFXApp {
+  var socket: Socket = IO.socket("http://localhost:8080/")
+  socket.on("message", new HandleMessagesFromPython)
+  socket.connect()
+
+  class HandleMessagesFromPython() extends Emitter.Listener {
+    override def call(objects: Object*): Unit = {
+      val message = objects.apply(0).toString
+      println(message)
+      for(i<-message){
+
+      }
+    }
+  }
   var lastUpdateTime: Long = System.nanoTime()
 
   var sceneGraphics: Group = new Group {}
@@ -108,7 +123,9 @@ object Game1 extends JFXApp {
 
       addEventHandler(KeyEvent.KEY_PRESSED, new PressMovement(player))
       addEventHandler(KeyEvent.KEY_RELEASED, new PressMovement(player))
-      addEventHandler(MouseEvent.MOUSE_CLICKED, (event: MouseEvent) => bulletBody(game.players.head.location.x + (1*game.players.head.orientation.x), game.players.head.location.y,Color.Black))
+      for(i<-game.players) {
+        addEventHandler(MouseEvent.MOUSE_CLICKED, (event: MouseEvent) => bulletBody(i.location.x + (1 *i.orientation.x), i.location.y, Color.Black))
+      }
 
     }
     val update: Long => Unit = (time: Long) => {
@@ -116,11 +133,11 @@ object Game1 extends JFXApp {
       val deltaTime: Double = (time - lastUpdateTime) / 1000000000.0
       lastUpdateTime = time
       game.update(deltaTime)
-
-      playerS.translateX.value = game.players.head.location.x
-      playerS.translateY.value = game.players.head.location.y
-
-      println(game.players.head.health)
+      for(i<-game.players) {
+        playerS.translateX.value = i.location.x
+        playerS.translateY.value = i.location.y
+      }
+//      println(game.players.head.health)
 
       if(game.projectiles.isEmpty){
 

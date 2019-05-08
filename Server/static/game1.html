@@ -2,62 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Game</title>
-
-
+    <title>game1</title>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 
 </head>
-
 <body>
-
-</body>
-<body onload="startGame()">
 <canvas id="canvas" width="1000" height="1000"></canvas>
-
-
 <script>
+
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
-    draw();
-
-    var gs="";
-
-    function startGame() {
-        var socket = io.connect({transports: ['websocket']});
-        socket.on('gameState', parseGameState);
-
-    }
-    function parseGameState(event) {
-        gs = JSON.parse(event);
-        for(let i of gs['players']) {
-            drawplayer( 100, 200, "blue");
-        }
-        // for(let j of gs['projectiles']) {
-        //     Circle(j['x'], j['y'], "black", 1);
-        // }
-    }
-
+    draw()
+    // for(var i=0;i<2;i=i++){
+        drawplayer(10, 30, 'blue')
+    // }
     function drawplayer(x, y, color) {
         ctx.fillStyle = color;
         ctx.fillRect(10 , 200 ,x, y);
         ctx.strokeStyle = 'black';
         ctx.strokeRect(10 , 200, x,y);
     }
-    function Circle(x, y, color, size) {
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.arc(x ,
-            y ,
-            size / 10.0 * 30,
-            0,
-            2 * Math.PI);
-        ctx.fill();
-        ctx.strokeStyle = 'black';
-        ctx.stroke();
-    }
-
-
+    // ctx.beginPath();
+    // ctx.rect(105, 150, 75, 30);
+    // ctx.fillStyle = "black";
+    // ctx.fill();
+    // ctx.closePath();
     function ground(){
         ctx.rect(0, 800, 1900, 150);
         ctx.fillStyle = "green";
@@ -139,41 +108,14 @@
         obstacle7();
         obstacle8();
     }
-    var keyS = {
-        "w": false,
-        "a": false,
-        "s": false,
-        "d": false
-    };
-
-    function setState(key, toSet){
-        if(keyS[key] !== toSet){
-            keyS[key] = toSet;
-            socket.emit(JSON.stringify(keyS));
-        }
-    }
-
-    function handleEvent(event, toSet){
-        if(event.key === "w" || event.key === "ArrowUp"){
-            setState("w", toSet);
-        }else if(event.key === "a" || event.key === "ArrowLeft"){
-            setState("a", toSet);
-        }else if(event.key === "s" || event.key === "ArrowDown"){
-            setState("s", toSet);
-        }else if(event.key === "d" || event.key === "ArrowRight"){
-            setState("d", toSet);
-        }
-    }
-
-    document.addEventListener("keydown", function (event) {
-        handleEvent(event, true);
-    });
-
-    document.addEventListener("keyup", function (event) {
-        handleEvent(event, false);
-    });
 
 
 </script>
+
+
+
+
+
+
 </body>
 </html>
