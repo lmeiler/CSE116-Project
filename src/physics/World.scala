@@ -141,10 +141,13 @@ class World(var boundariesSet: List[Boundary]) {
       "projectiles" -> Json.toJson(this.projectiles.map({ po => Json.toJson(Map("x" -> po.location.x, "y" -> po.location.y)) })),
       "players" -> Json.toJson( this.players.map( { case (player) =>
         Json.toJson(Map(
-          "x" -> player.location.x,
-          "y" -> player.location.y,
-          "v_x" -> player.location.x,
-          "v_y" -> player.location.y,
+          "x" -> Json.toJson(player.location.x),
+          "y" -> Json.toJson(player.location.y),
+          "v_x" -> Json.toJson(player.location.x),
+          "v_y" -> Json.toJson(player.location.y),
+          "v_y" -> Json.toJson(player.location.y),
+          "username"-> Json.toJson(player.username),
+          "health" -> Json.toJson(player.health)
         )
         )
       })
