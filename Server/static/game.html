@@ -1,137 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Game</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 
-    <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-        }
-        h1 {
-
-            color: white;
-            text-align: center;
-        }
-
-        p {
-            font-family: verdana;
-            font-size: 20px;
-        }
-        * { padding: 0; margin: 0; }
-        canvas { background: #eee; display: block; margin: 0 auto; }
-
-    </style>
-    <!--<canvas id="myCanvas" width="600" height="700"></canvas>-->
 </head>
-<p style = "font-family:georgia,garamond,serif;font-size:50px;font-style:italic;text-align:center">"BATTLE WORLD"</p>
-
-
-<table style="width:60%">
-    <caption style = "font-family:georgia,garamond,serif;font-size:35px;font-style:italic;text-align:center">
-        Leader-Board</caption>
-    <tr>
-        <th style = "font-family:georgia,garamond,serif;font-size:30px;font-style:italic;text-align:center">
-            Username</th>
-        <th style = "font-family:georgia,garamond,serif;font-size:30px;font-style:italic;text-align:center"
-        >Health</th>
-    </tr>
-    <tr>
-        <td    style = "font-family:georgia,garamond,serif;font-size:25px;font-style:italic;text-align:center"
-        >Player1</td>
-        <td style = "font-family:georgia,garamond,serif;font-size:25px;font-style:italic;text-align:center">30</td>
-    </tr>
-    <tr>
-        <td style = "font-family:georgia,garamond,serif;font-size:25px;font-style:italic;text-align:center">Player2</td>
-        <td style = "font-family:georgia,garamond,serif;font-size:25px;font-style:italic;text-align:center">20</td>
-
-    </tr>
-    <tr>
-        <td style = "font-family:georgia,garamond,serif;font-size:25px;font-style:italic;text-align:center">Player3</td>
-        <td style = "font-family:georgia,garamond,serif;font-size:25px;font-style:italic;text-align:center">10</td>
-
-    </tr>
-</table>
-<p><u>INSTRUCTIONS TO PLAY</u></p>
-<p>This is a multiplayer battle game.
-    Where the players fight with each other till their health is completely taken away by other players.
-    Each players health can be seen in the leader-board.</p>
-<p>
-
-
-
 <body onload="startGame()">
 <script>
+    
+    var gs="";
 
-
-    function parseGameState(event) {
-        const gameState = JSON.parse(event);
-        print(player.length)
-        for(let i of gameState["players"]){
-           component(10,200, "blue", 0, 600);
-        }
-    }
     function startGame() {
         var socket = io.connect({transports: ['websocket']});
         socket.on('gameState', parseGameState);
-        myGameArea.start();
-        myGamePiece = new component(10,200, "blue", 0, 600);
+
     }
-    var myGameArea = {
-        canvas : document.createElement("canvas"),
-        start : function() {
-            this.canvas.width = 1900;
-            this.canvas.height = 900;
-            this.context = this.canvas.getContext("2d");
-            document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-            this.interval = setInterval(updateGameArea, 20);
-            window.addEventListener('keydown', function (e) {
-                myGameArea.keys = (myGameArea.keys || []);
-                myGameArea.keys[e.keyCode] = (e.type == "keydown");
-            })
-            window.addEventListener('keyup', function (e) {
-                myGameArea.keys[e.keyCode] = (e.type == "keydown");
-            })
-        },
-        clear : function(){
-            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    function parseGameState(event) {
+        gs = JSON.parse(event);
+        for(let i of gs['players']) {
+            drawplayer( i['x'], i['y'], "blue");
         }
-    }
-    function component(width, height, color, x, y) {
-        this.gamearea = myGameArea;
-        this.width = width;
-        this.height = height;
-        this.speedX = 0;
-        this.speedY = 0;
-        this.x = x;
-        this.y = y;
-        this.update = function() {
-            ctx = myGameArea.context;
-            ctx.fillStyle = color;
-            ctx.fillRect(this.x, this.y, this.width, this.height);
+        for(let j of gs['projectiles']) {
+            Circle(j['x'], j['y'], "black", 1);
         }
-        this.newPos = function() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-        }
+        draw()
     }
-    function updateGameArea() {
-        myGameArea.clear();
-        myGamePiece.speedX = 0;
-        myGamePiece.speedY = 0;
-        if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.speedX = -10; }
-        if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.speedX = 10; }
-        if (myGameArea.keys && myGameArea.keys[38]) {myGamePiece.speedY = -1; }
-        if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speedY = 1; }
-        myGamePiece.newPos();
-        myGamePiece.update();
-        draw();
+
+    function drawplayer(x, y, color) {
+        context.fillStyle = color;
+        context.fillRect(10 , 200 ,x, y);
+        context.strokeStyle = 'black';
+        context.strokeRect(10 , 200, x,y);
     }
+    function Circle(x, y, color, size) {
+        context.fillStyle = color;
+        context.beginPath();
+        context.arc(x ,
+            y ,
+            size / 10.0 * 30,
+            0,
+            2 * Math.PI);
+        context.fill();
+        context.strokeStyle = 'black';
+        context.stroke();
+    }
+
+
     function ground(){
         ctx.rect(0, 800, 1900, 150);
         ctx.fillStyle = "green";
@@ -213,10 +128,41 @@
         obstacle7();
         obstacle8();
     }
+    var keyS = {
+        "w": false,
+        "a": false,
+        "s": false,
+        "d": false
+    };
+
+    function setState(key, toSet){
+        if(keyS[key] !== toSet){
+            keyS[key] = toSet;
+            socket.emit("keyS", JSON.stringify(keyS));
+        }
+    }
+
+    function handleEvent(event, toSet){
+        if(event.key === "w" || event.key === "ArrowUp"){
+            setState("w", toSet);
+        }else if(event.key === "a" || event.key === "ArrowLeft"){
+            setState("a", toSet);
+        }else if(event.key === "s" || event.key === "ArrowDown"){
+            setState("s", toSet);
+        }else if(event.key === "d" || event.key === "ArrowRight"){
+            setState("d", toSet);
+        }
+    }
+
+    document.addEventListener("keydown", function (event) {
+        handleEvent(event, true);
+    });
+
+    document.addEventListener("keyup", function (event) {
+        handleEvent(event, false);
+    });
 
 
 </script>
-
-
 </body>
 </html>
