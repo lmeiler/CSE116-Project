@@ -41,6 +41,7 @@ class GameServer(gameActor: ActorRef) extends Actor {
     case gs:GameState =>
       this.webServers.foreach((client: ActorRef) => client ! Write(ByteString(gs.gameState + delimiter)))
   }
+
   def webServerMessageHandler(message:String): Unit ={
     val newMessage: JsValue = Json.parse(message)
     val username = (newMessage \ "username").as[String]
