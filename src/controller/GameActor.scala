@@ -30,8 +30,10 @@ class GameActor() extends Actor {
         }
       }
     case Update =>
-      game.update(System.nanoTime())
+      game.update()
+
     case SendGameState => sender() ! GameState(game.gameState())
+
     case message:KillPlayer => Database.removePlayer(message.username)
       Database.createPlayer(message.username,new PhysicsVector(message.x,message.y))
 
