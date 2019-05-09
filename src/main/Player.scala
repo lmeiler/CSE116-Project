@@ -11,7 +11,7 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
 
   var orientation: PhysicsVector = new PhysicsVector(1,0)
   var health: Int = 10
-  val speed: Int = 10
+  val speed: Int = 15
   val length: Int = 100
   val width: Int = 10
 

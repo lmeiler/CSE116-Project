@@ -42,10 +42,12 @@ class GameActor() extends Actor {
       game.players.foreach { player =>
         if (player.username == message.username){
           if (message.x == -1){
-            player.moveLeft()
+            //player.moveLeft()
+            player.leftPressed()
           }
           if (message.x == 1){
-            player.moveRight()
+            //player.moveRight()
+            player.rightPressed()
           }
           if (message.y == -1){
             player.jump()
