@@ -38,7 +38,19 @@ class GameActor() extends Actor {
     case message:movePlayer =>
       game.players.foreach { player =>
         if (player.username == message.username){
-          player.move(new PhysicsVector(message.x,message.y))
+          if (message.x == -1){
+            player.moveLeft()
+          }
+          if (message.x == 1){
+            player.moveRight()
+          }
+          if (message.y == -1){
+            player.jump()
+          }
+//          if (message.y == -1){
+//
+//          }
+
         }
       }
     case message:Shoot => game.players.foreach(player => if(player.username==message.username) player.shoot())
