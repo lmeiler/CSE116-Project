@@ -17,15 +17,14 @@
 
 
 <script>
+    var socket = io.connect({transports: ['websocket']});
     // console.log("hiii")
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
-    draw();
-
+    draw()
     var gs="";
 
     function startGame() {
-        var socket = io.connect({transports: ['websocket']});
         socket.on('gameState', parseGameState);
 
     }
@@ -143,41 +142,11 @@
         obstacle7();
         obstacle8();
     }
-    var keyS = {
-        "w": false,
-        "a": false,
-        "s": false,
-        "d": false
-    };
 
-    function setState(key, toSet){
-        if(keyS[key] !== toSet){
-            keyS[key] = toSet;
-            socket.emit(JSON.stringify(keyS));
-        }
-    }
 
-    function handleEvent(event, toSet){
-        if(event.key === "w" || event.key === "ArrowUp"){
-            setState("w", toSet);
-        }else if(event.key === "a" || event.key === "ArrowLeft"){
-            setState("a", toSet);
-        }else if(event.key === "s" || event.key === "ArrowDown"){
-            setState("s", toSet);
-        }else if(event.key === "d" || event.key === "ArrowRight"){
-            setState("d", toSet);
-        }
-    }
-
-    document.addEventListener("keydown", function (event) {
-        handleEvent(event, true);
-    });
-
-    document.addEventListener("keyup", function (event) {
-        handleEvent(event, false);
-    });
 
 
 </script>
+<script src="gameStates.js"></script>
 </body>
 </html>

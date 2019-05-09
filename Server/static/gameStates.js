@@ -8,7 +8,7 @@ var keyStates = {
 function setState(key, toSet){
     if(keyStates[key] !== toSet){
         keyStates[key] = toSet;
-        socket.emit("keyStates", JSON.stringify(keyStates));
+        socket.emit('keyStates', JSON.stringify(keyStates));
     }
 }
 
@@ -28,6 +28,7 @@ function handleEvent(event, toSet){
 
 
 document.addEventListener("keydown", function (event) {
+    console.log("event handle")
     handleEvent(event, true);
 });
 
