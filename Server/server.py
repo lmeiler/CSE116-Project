@@ -28,7 +28,7 @@ def listen_to_scala(the_socket):
             message = buffer[:buffer.find(delimiter)]
             buffer = buffer[buffer.find(delimiter) + 1:]
             get_from_scala(message)
-            print(message)
+            # print(message)
 
 
 def get_from_scala(data):
@@ -62,7 +62,8 @@ def disconnect():
 @socket_server.on('keyStates')
 def key_state(jsonKeyStates):
     key_states = json.loads(jsonKeyStates)
-    print(key_state)
+    print(key_states)
+    print("hii")
     x = 0.0
     if key_states["a"] and not key_states["d"]:
         x = -1.0
@@ -82,9 +83,9 @@ def index():
     return send_from_directory("static", 'game.html')
 
 
-# @app.route('/<path:filename>  ')
-# def static_files(filename):
-#     return send_from_directory('static', filename)
+@app.route('/<path:filename>')
+def static_files(filename):
+    return send_from_directory('static', filename)
 
 
 print("Listening on port 8080")

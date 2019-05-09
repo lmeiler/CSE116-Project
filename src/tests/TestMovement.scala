@@ -26,7 +26,7 @@ class TestMovement extends FunSuite {
     player2.leftPressed()
     player3.jump()
 
-    world.update(1.0)
+    world.update()
 
     val player1_newLocation: PhysicsVector = new PhysicsVector(310, 0)
     val player2_newLocation: PhysicsVector = new PhysicsVector(-230, 0)
@@ -56,7 +56,7 @@ class TestMovement extends FunSuite {
     // Press left to player1
     player3.jump()
 
-    world.update(1.0)
+    world.update()
     val player3_newLocation: PhysicsVector = new PhysicsVector(35, -180)
     val player3_velocity: PhysicsVector = new PhysicsVector(0, 60)
 

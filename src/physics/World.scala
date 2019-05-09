@@ -10,6 +10,7 @@ import play.api.libs.json.{JsValue, Json}
 import scala.collection.mutable.ListBuffer
 
 class World(var boundariesSet: List[Boundary]) {
+  val EPSILON: Double = 1e-3
 
   //  var players: mutable.MutableList[Player] = mutable.MutableList()
 
@@ -35,6 +36,9 @@ class World(var boundariesSet: List[Boundary]) {
     //    val newList: List[Player] = buffer.toList
     //    this.players = newList
   }
+  def shooting(): Unit = {
+  this.projectiles+=new Projectile(new PhysicsVector(0,0), new PhysicsVector(0.0, 0.0))
+  }
 
   def checkWinner(): String = {
     if (this.players.size == 1) {
@@ -50,7 +54,7 @@ class World(var boundariesSet: List[Boundary]) {
     }
   }
   def addPlayer(userName:String): Unit ={
-    players += new Player(new PhysicsVector(1, 1), new PhysicsVector(1, 1),userName,this)
+    players += new Player(new PhysicsVector(1, 1), new PhysicsVector(0, 0),userName,this)
   }
 
   //  def playersTakeDamage(): Unit = {
@@ -73,28 +77,57 @@ class World(var boundariesSet: List[Boundary]) {
 
   //Luke - I'm trying to work on updating each of the "objects" (meaning players and projectiles) with new locations and hit detection
   // this is not finished by any means
+  def updateVelocity(obj: PhysicalObject, world: World, dt: Double): Unit = {
+    val newVelocity: PhysicsVector = new PhysicsVector(obj.velocity.x, obj.velocity.y - world.gravity *dt)
+    obj.velocity.y = newVelocity.y
+  }
+  def computePotentialLocation(obj: PhysicalObject, dt: Double): PhysicsVector = {
+    val xTraveled = obj.location.x + (obj.velocity.x * dt)
+    val yTraveled = obj.location.y + (obj.velocity.y * dt)
+    val newVector: PhysicsVector = new PhysicsVector( xTraveled ,yTraveled)
+    newVector
+  }
+
+
 
   def update(): Unit = {
     val time: Long = System.nanoTime()
     val deltaTime = (time - this.lastUpdateTime) / 1000000000.0
     var playerBoundaries: Map[Player, Boundary] = createPlayerBoundaries()
+//    println(this.players+"backend")
+    println(this.players)
     for (player <- this.players) {
-      //      player.update(deltaTime)
-      val newPotentialLocation = new PhysicsVector(player.location.x + player.velocity.x * deltaTime, player.location.y + player.velocity.y * deltaTime)
-      for (platform <- this.boundariesSet) {
-        var collision = player.detectCollision(player, newPotentialLocation, platform)
-        if (collision) {
-          player.updateVelocity(this, deltaTime)
-          //        player.velocity.y -= this.gravity*deltaTime
-          player.location = newPotentialLocation
-          player.bottom = new PhysicsVector(player.location.x, player.location.y)
-          player.top = new PhysicsVector(player.location.x, player.location.y + 100)
-        }
-        else {
-          player.velocity.y = 0
-        }
-      }
+//      println(player.velocity.x+"1")
+//      println(player.velocity.y+"2")
+      updateVelocity(player, this, deltaTime)
+
+//            player.update(deltaTime)
+      val newPotentialLocation =  computePotentialLocation(player, deltaTime)
+
+      //      println(deltaTime)
+//
+//      for (platform <- this.boundariesSet) {
+//        var collision = player.detectCollision(player, newPotentialLocation, platform)
+//        if (collision) {
+//          player.updateVelocity(this, deltaTime)
+//          //        player.velocity.y -= this.gravity*deltaTime
+//          player.location = newPotentialLocation
+//          player.bottom = new PhysicsVector(player.location.x, player.location.y)
+//          player.top = new PhysicsVector(player.location.x, player.location.y + 100)
+//        }
+//        else {
+//          player.velocity.y = 0
+//
+//
+//        }
+//      }
+
+      player.location = newPotentialLocation
+      player.move(newPotentialLocation)
+      println(player.velocity.x+"2")
+      println(player.velocity.y+"2")
     }
+    this.lastUpdateTime = time
 
     for (projectile <- this.projectiles) {
       if (this.projectiles.nonEmpty) {
@@ -133,6 +166,8 @@ class World(var boundariesSet: List[Boundary]) {
     //      }
     //    }
     eliminatePlayers()
+    this.lastUpdateTime = time
+
   }
 
   def gameState():String ={

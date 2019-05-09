@@ -29,7 +29,7 @@ class GameServer(gameActor: ActorRef) extends Actor {
       println("Client Disconnected: " + sender())
       this.webServers = this.webServers - sender()
     case r:Received =>
-      print(r.data.utf8String)
+//      print(r.data.utf8String)
       buffer += r.data.utf8String
       while (buffer.contains(delimiter)){
         val curr = buffer.substring(0, buffer.indexOf(delimiter))

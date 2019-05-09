@@ -12,39 +12,52 @@
 <body>
 
 </body>
-<body onload="startGame()">
+<body>
 <canvas id="canvas" width="1000" height="1000"></canvas>
 
 
 <script>
+
     var socket = io.connect({transports: ['websocket']});
-    // console.log("hiii")
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
-    draw()
-    var gs="";
 
-    function startGame() {
-        socket.on('gameState', parseGameState);
+    ctx.globalCompositeOperation = 'source-over';
 
-    }
+
+    socket.on('gameState', parseGameState);
+
+    // console.log("hiii")
+
+
     function parseGameState(event) {
-        gs = JSON.parse(event);
-        console.log(gs)
-        console.log("hello")
+        canvas.width+=0
+        draw()
+        var gs = JSON.parse(event);
+        // console.log(gs)
+        console.log("hello");
 
-        for(let i of gs['players']) {
+        for (let i of gs['players']) {
             console.log(i);
-            drawplayer( i['x'], i['y'], 'blue');
+            drawplayer(i['x'], i['y'], i['id'] === socket.id ? '#ffff00' : '#56bcff');
+
         }
-        // for(let j of gs['projectiles']) {
-        //     Circle(j['x'], j['y'], "black", 1);
-        // }
+            for (let j of gs['projectiles']) {
+                Circle(j['x'], j['y'], "black", 1);
+            }
+
     }
+
+
 
     function drawplayer(x, y, color) {
         ctx.fillStyle = color;
-        ctx.fillRect(x*10 , y*10 ,50,100);
+        ctx.beginPath();
+        ctx.fillRect(x , y ,50,100);
+        ctx.strokeStyle = color;
+        ctx.strokeRect(x , y , 50, 100);
+        // ctx.clearRect ( x , y, 50 , 100 );
+
 
     }
     function Circle(x, y, color, size) {
@@ -142,6 +155,7 @@
         obstacle7();
         obstacle8();
     }
+
 
 
 

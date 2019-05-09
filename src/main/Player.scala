@@ -11,7 +11,7 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
 
   var orientation: PhysicsVector = new PhysicsVector(1,0)
   var health: Int = 10
-  val speed: Int = 300
+  val speed: Int = 10
   val length: Int = 100
   val width: Int = 10
 
@@ -24,11 +24,13 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
   def leftPressed(): Unit = {
     leftPress =  true
     this.state.leftPress()
+    this.velocity.x = -this.speed
   }
 
   def rightPressed(): Unit = {
     rightPress = true
     this.state.rightPress()
+    this.velocity.x = this.speed
   }
 
   def jump(): Unit = {
@@ -59,6 +61,8 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
 
   //END API
 
+
+
   def moveLeft(): Unit = {
     this.velocity.x = -this.speed
   }
@@ -67,12 +71,18 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
     this.velocity.x = this.speed
   }
 
+//  def move(direction: PhysicsVector){
+//    val normalDirection = direction.normal2d()
+//    this.velocity = new PhysicsVector(normalDirection.x * speed, normalDirection.y * speed)
+//  }
+//
   def move(direction: PhysicsVector){
     val normalDirection = direction.normal2d()
 
     this.velocity.x = normalDirection.x * speed
     this.velocity.y = normalDirection.y * speed
   }
+
 //  def jump(): Unit = {
 //    this.velocity.y = 15
 //  }
@@ -143,13 +153,13 @@ class Player(location: PhysicsVector, velocity: PhysicsVector, var username: Str
 //  }
 
 //  var shoot: Projectile = new Projectile(this.location, new PhysicsVector(0.0, 0.0))
-
-//  def shooting(): Unit = {
 //
-//    get_orientation()
-//    shoot.velocity.x = this.orientation.x * 2
-//    shoot.velocity.y = 0
-//    shoot.location.x = this.location.x + 0.1
+//  def shooting(): Unit = {
+//    this.pr
+////    get_orientation()
+////    shoot.velocity.x = this.orientation.x * 2
+////    shoot.velocity.y = 0
+////    shoot.location.x = this.location.x + 0.1
 ////    shoot.location.y = this.location.y + 0.1
 //  }
 

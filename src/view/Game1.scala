@@ -132,8 +132,11 @@ object Game1 extends JFXApp {
 
       val deltaTime: Double = (time - lastUpdateTime) / 1000000000.0
       lastUpdateTime = time
-      game.update(deltaTime)
+      game.update()
       for(i<-game.players) {
+        println(i.location.x)
+        println(i.location.y)
+
         playerS.translateX.value = i.location.x
         playerS.translateY.value = i.location.y
       }
